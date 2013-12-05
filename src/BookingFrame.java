@@ -12,7 +12,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class BookingFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form BookingFrame
+     * Creates new form Display
      */
     public BookingFrame() {
         initComponents();
@@ -63,7 +63,7 @@ public class BookingFrame extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         userLogoutButton = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
-        usrLoggedInAsLabel = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
         flightSearchPanel = new javax.swing.JPanel();
         searchResultsPanel = new javax.swing.JPanel();
         selectTripButton = new javax.swing.JButton();
@@ -379,8 +379,8 @@ public class BookingFrame extends javax.swing.JFrame {
                                 .addComponent(userViewFlightHistoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
                             .addGroup(userPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel24)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(usrLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                         .addComponent(userLogoutButton)))
                 .addContainerGap())
@@ -395,7 +395,7 @@ public class BookingFrame extends javax.swing.JFrame {
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(usrLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel24))))
                 .addGap(12, 12, 12)
                 .addComponent(userSearchFlightButton)
@@ -888,6 +888,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -934,6 +935,5 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JPanel userPanel;
     private javax.swing.JButton userSearchFlightButton;
     private javax.swing.JButton userViewFlightHistoryButton;
-    private javax.swing.JLabel usrLoggedInAsLabel;
     // End of variables declaration//GEN-END:variables
 }
