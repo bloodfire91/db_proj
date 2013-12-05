@@ -45,7 +45,6 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         createAccountButton = new javax.swing.JButton();
         adminPanel = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         adminDeleteTripButton = new javax.swing.JButton();
         adminEditAssignmentButton = new javax.swing.JButton();
@@ -55,13 +54,16 @@ public class BookingFrame extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         adminFlightsTable = new javax.swing.JTable();
         adminLogoutButton = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        adminLoggedInAsLabel = new javax.swing.JLabel();
         userPanel = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
         userSearchFlightButton = new javax.swing.JButton();
         userViewFlightHistoryButton = new javax.swing.JButton();
         userFlightHistoryTable = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         userLogoutButton = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        usrLoggedInAsLabel = new javax.swing.JLabel();
         flightSearchPanel = new javax.swing.JPanel();
         searchResultsPanel = new javax.swing.JPanel();
         selectTripButton = new javax.swing.JButton();
@@ -240,9 +242,6 @@ public class BookingFrame extends javax.swing.JFrame {
 
         getContentPane().add(loginPanel, "card4");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel24.setText("Admin");
-
         jLabel25.setText("Trips");
 
         adminDeleteTripButton.setText("Delete");
@@ -289,27 +288,32 @@ public class BookingFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel26.setText("Logged in as : ");
+
         javax.swing.GroupLayout adminPanelLayout = new javax.swing.GroupLayout(adminPanel);
         adminPanel.setLayout(adminPanelLayout);
         adminPanelLayout.setHorizontalGroup(
             adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(adminPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(adminEditAssignmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(adminPanelLayout.createSequentialGroup()
-                                .addComponent(adminViewTripButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(adminDeleteTripButton))
-                            .addGroup(adminPanelLayout.createSequentialGroup()
-                                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel24)
-                                    .addComponent(jLabel25))
-                                .addGap(376, 376, 376)))
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(adminEditAssignmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(adminPanelLayout.createSequentialGroup()
+                                    .addComponent(adminViewTripButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(adminDeleteTripButton))
+                                .addGroup(adminPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel25)
+                                    .addGap(429, 429, 429)))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(adminPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(adminLogoutButton)
                 .addContainerGap())
@@ -319,8 +323,9 @@ public class BookingFrame extends javax.swing.JFrame {
             .addGroup(adminPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(adminLogoutButton))
+                    .addComponent(adminLogoutButton)
+                    .addComponent(jLabel26)
+                    .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -333,13 +338,10 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adminEditAssignmentButton)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(adminPanel, "card6");
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel23.setText("User");
 
         userSearchFlightButton.setText("Search Flights");
 
@@ -360,6 +362,8 @@ public class BookingFrame extends javax.swing.JFrame {
 
         userLogoutButton.setText("Logout");
 
+        jLabel24.setText("Logged in as: ");
+
         javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
         userPanel.setLayout(userPanelLayout);
         userPanelLayout.setHorizontalGroup(
@@ -369,10 +373,14 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userFlightHistoryTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(userPanelLayout.createSequentialGroup()
-                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(userSearchFlightButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel23)
-                            .addComponent(userViewFlightHistoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(userSearchFlightButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(userViewFlightHistoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                            .addGroup(userPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(usrLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                         .addComponent(userLogoutButton)))
                 .addContainerGap())
@@ -380,11 +388,16 @@ public class BookingFrame extends javax.swing.JFrame {
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userPanelLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23)
-                    .addComponent(userLogoutButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(userLogoutButton))
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usrLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24))))
+                .addGap(12, 12, 12)
                 .addComponent(userSearchFlightButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(userViewFlightHistoryButton)
@@ -841,6 +854,7 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JButton adminDeleteTripButton;
     private javax.swing.JButton adminEditAssignmentButton;
     private javax.swing.JTable adminFlightsTable;
+    private javax.swing.JLabel adminLoggedInAsLabel;
     private javax.swing.JButton adminLogoutButton;
     private javax.swing.JPanel adminPanel;
     private javax.swing.JTable adminTripsTable;
@@ -871,9 +885,9 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -920,5 +934,6 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JPanel userPanel;
     private javax.swing.JButton userSearchFlightButton;
     private javax.swing.JButton userViewFlightHistoryButton;
+    private javax.swing.JLabel usrLoggedInAsLabel;
     // End of variables declaration//GEN-END:variables
 }
