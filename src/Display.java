@@ -7,6 +7,9 @@
  *
  * @author Robin
  */
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class Display extends javax.swing.JFrame {
@@ -806,16 +809,26 @@ public class Display extends javax.swing.JFrame {
         System.out.println("username: " + username);
         System.out.println("passwrod: " + password);
         
-        if(controller.validateUser(username, password)) 
+        boolean validated = false;
+        try
         {
-            
+             validated = controller.validateUser(username, password);
+             System.out.println("in validated: " + validated);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }    
+        
+        System.out.println("validated: " + validated);
+        if(validated) 
+        {            
             //System.out.print("validated");
             //change cards
         }
         else
         {
-           // System.out.print("not validated");
-            //change cards
+           JOptionPane.showMessageDialog(this, "invalid username password combo");
         }        
     }//GEN-LAST:event_oldUserSignInActionPerformed
 

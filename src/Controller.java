@@ -115,8 +115,9 @@ public class Controller {
             
             if(!rset.next())
             {
-                System.out.println("user not found");
-                validated = true;         
+                //System.out.println("user not found");
+                validated = false;      
+                
             }
             else
             {
