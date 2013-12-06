@@ -64,7 +64,7 @@ public class Display extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         adminTripsTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        adminFlightsTable = new javax.swing.JTable();
+        adminLegsTable = new javax.swing.JTable();
         adminLogoutButton = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         adminLoggedInAsLabel = new javax.swing.JLabel();
@@ -292,19 +292,19 @@ public class Display extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(adminTripsTable);
 
-        adminFlightsTable.setModel(new javax.swing.table.DefaultTableModel(
+        adminLegsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Trip Number", "Leg Number", "Seats Available", "Date"
+                "Trip Number", "Leg Number", "Seats Available", "Date", "Assignment"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -315,7 +315,7 @@ public class Display extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(adminFlightsTable);
+        jScrollPane6.setViewportView(adminLegsTable);
 
         adminLogoutButton.setText("Logout");
         adminLogoutButton.addActionListener(new java.awt.event.ActionListener() {
@@ -973,9 +973,18 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_oldUserPasswordFieldActionPerformed
 
     private void adminViewTripButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminViewTripButtonActionPerformed
-        //fill leg table from trip data
+        //fill leg table w legs corresp to trip
+        int index = this.adminTripsTable.getSelectedRow();
+        //System.out.println("selected row: " + index);       
+        if(index < 0)
+        {
+            return;
+        }
         
+        javax.swing.table.DefaultTableModel inventoryModel = (javax.swing.table.DefaultTableModel)adminTripsTable.getModel();
+        Object tripNum = inventoryModel.getValueAt(index, 0);
         
+        controller.fillAdminLegTable((String)tripNum);        
     }//GEN-LAST:event_adminViewTripButtonActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
@@ -996,6 +1005,29 @@ public class Display extends javax.swing.JFrame {
                 trips.get(i).getDeparture(),
                 trips.get(i).getDestination(),
                 trips.get(i).getNumber_of_legs()
+            });
+        }
+    }
+    
+    public void displayAdminLegs(List<Leg> legs)
+    {
+         javax.swing.table.DefaultTableModel adminLegsModel =
+            (javax.swing.table.DefaultTableModel)this.adminLegsTable.getModel();
+        // clear all the rows
+        for(int i = adminLegsModel.getRowCount()-1; i >= 0; i--) {
+            adminLegsModel.removeRow(i);
+        }
+        
+        System.out.println("legssize: " + legs.size());
+        
+        //add back rows: trip_number, airline, price, departure, destination, number_of_legs
+        for(int i = 0; i < legs.size(); i++) {
+            adminLegsModel.addRow(new Object[] {
+                legs.get(i).getTrip_number(),
+                legs.get(i).getLeg_number(),
+                legs.get(i).getSeats_available(),
+                legs.get(i).getFlight_date(),
+                legs.get(i).getAssignment(),        
             });
         }
     }
@@ -1037,7 +1069,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JPanel OldUserSignIn;
     private javax.swing.JButton adminDeleteTripButton;
     private javax.swing.JButton adminEditAssignmentButton;
-    private javax.swing.JTable adminFlightsTable;
+    private javax.swing.JTable adminLegsTable;
     private javax.swing.JLabel adminLoggedInAsLabel;
     private javax.swing.JButton adminLogoutButton;
     private javax.swing.JPanel adminPanel;

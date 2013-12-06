@@ -119,7 +119,7 @@ public class DBHandler {
         return userAccess;
     }
     
-    public List<Trip> getAllTrips()
+    public List<Trip> getAllTrips() throws SQLException
     {
         Statement stmt = null;
         ResultSet trips = null;
@@ -154,6 +154,10 @@ public class DBHandler {
         {
             System.out.println(e.getMessage());
         }
+        finally
+        {
+            stmt.close();
+        }
         
         return allTrips;
     }
@@ -185,5 +189,67 @@ public class DBHandler {
         }
         
         return removed;
+    }
+    
+    public List<Leg> getLegs(String tripNum) throws SQLException
+    {
+        Statement stmt = null;
+        Statement assnStmt = null;
+        ResultSet legs = null;
+        ResultSet assignedPlane = null;
+        List<Leg> allLegs = new ArrayList<Leg>();
+        
+        try
+        {
+            String legsQuery = "SELECT * FROM FLIGHT_LEG WHERE TRIP_NUMBER = '" + tripNum + "'";            
+            stmt = conn.createStatement();
+            assnStmt = conn.createStatement();
+            
+            legs = stmt.executeQuery(legsQuery);
+           
+            if(!legs.next())
+            {
+                System.out.println("trips empty");
+            }
+            else
+            {
+                do
+                {
+                    String legNum = legs.getString("LEG_NUMBER");                    
+                    String seats = legs.getString("SEATS_AVAILABLE");
+                    String date = legs.getString("FLIGHT_DATE");                    
+                    //allLegs.add(new Leg(legNum, tripNum, seats, date));
+                   
+                    String assignQuery = "SELECT ID FROM ASSIGN WHERE LEG_NUMBER = '" + legNum + "' AND TRIP_NUMBER = '" + tripNum + "'";
+                    assignedPlane = assnStmt.executeQuery(assignQuery);
+                    String assignment;
+                    if(!assignedPlane.next())
+                    {
+                        assignment = "not assigned";
+                    }
+                    else
+                    {
+                        //assignment = "hi";
+                        assignment = assignedPlane.getString("ID");
+                        //System.out.println("assignment: " + assignment);
+                    }
+                    /*System.out.println(legs.getString("LEG_NUMBER"));
+                    System.out.println(legs.getString("TRIP_NUMBER"));
+                    System.out.println(legs.getString("SEATS_AVAILABLE"));
+                    System.out.println(legs.getString("FLIGHT_DATE") + "\n"); */   
+                    allLegs.add(new Leg(legNum, tripNum, seats, date, assignment));
+                    
+                }while(legs.next());
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }
+        return allLegs;
     }
 }

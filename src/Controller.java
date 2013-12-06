@@ -152,8 +152,15 @@ public class Controller {
     
     public void fillAdminTripTable()
     {
-        List<Trip> trips = dbHandler.getAllTrips();        
-        display.displayAdminTrips(trips);
+        try
+        {
+            List<Trip> trips = dbHandler.getAllTrips();        
+            display.displayAdminTrips(trips);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
     
     public boolean removeTrip(String tripNum)
@@ -168,6 +175,20 @@ public class Controller {
             System.out.println(e.getMessage());                    
         }
         return removed;
+    }
+    
+    public void fillAdminLegTable(String tripNum)
+    {
+        try
+        {
+            List<Leg> legs = dbHandler.getLegs(tripNum);        
+            display.displayAdminLegs(legs);
+            //dbHandler.getLegs(tripNum);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
     
     //display GUI
