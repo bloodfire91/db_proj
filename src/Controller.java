@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 import java.sql.*;
+import java.util.List;
 /**
  *
  * @author Robin
@@ -12,17 +13,22 @@ public class Controller {
     private User loggedInUser;
     private Payment currentPayment;
     private Trip selectedTrip;
-    private Connection conn;
-            
-    Controller()
+    private DBHandler dbHandler;
+    //private Connection conn;
+    //private String userAccess;
+    //private String ADMIN = "A";
+    //private String RESTRICTED = "R";
+    
+    Controller(String password)
     {
         display = new Display(this);
-        
-        initConnection();
+        dbHandler = new DBHandler(password);
+        //userAccess = new String("R");
+        //initConnection();
         
     }
     
-    public void initConnection()
+    /*public void initConnection()
     {
         try
         {
@@ -34,7 +40,7 @@ public class Controller {
         { 
             System.out.println(e.getMessage());
         }
-    }
+    }*/
     
     public User login(String username, String password )
     {
@@ -101,51 +107,67 @@ public class Controller {
         display.setVisible(true);
     }
     
-    public boolean validateUser(String username, String password) throws SQLException
+    public boolean validateUser(String username, String password)
     {
         boolean validated = false;
-        Statement stmt = null;
-        
         try
         {
-            // Create a Statement
-            stmt = conn.createStatement();
-            //check for user
-            ResultSet rset = stmt.executeQuery ("select username from USERS where username = '" + username + "' and user_password = '" + password + "'");
-            
-            if(!rset.next())
-            {
-                //System.out.println("user not found");
-                validated = false;      
-                
-            }
-            else
-            {
-                System.out.println("user found: " + rset.getString("USERNAME"));
-                validated = true;
-            }       
-            return validated;
+            validated = dbHandler.validateUser(username, password);
         }
-        catch (SQLException e) 
-        { 
+        catch(SQLException e)
+        {
             System.out.println(e.getMessage());
         }
-        finally
-        {
-            if(stmt != null)
-            {
-                stmt.close();
-            }
-        }
-        
         return validated;
+    }
+    
+    public boolean addUser(String username, String password) throws SQLException
+    {
+        boolean added = false;
+        try
+        {
+            added = dbHandler.addUser(username, password);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return added;
+    }
+     
+    public String getUserAccess()
+    {
+        return dbHandler.getUserAccess();
+    }
+    
+    public String getAdmin()
+    {
+        return dbHandler.getAdmin();
+    }
+    
+    public String getRestricted()
+    {
+        return dbHandler.getRestricted();
+    }
+    
+    public void fillAdminTripTable()
+    {
+        List<Trip> trips = dbHandler.getAllTrips();        
+        display.displayAdminTrips(trips);
     }
     
     //display GUI
     public static void main(String args[])
     {
+        
+        if(args.length < 1 )
+        {
+            System.out.println("db password not provided");
+            System.exit(1);
+        }
+        
         System.out.println("welcome");
-        final Controller controller = new Controller();
+        final Controller controller = new Controller(args[0]);
        
 
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -7,8 +7,11 @@
  *
  * @author Robin
  */
+import java.awt.CardLayout;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import java.util.List;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -49,7 +52,7 @@ public class Display extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        newUserUsername = new javax.swing.JTextField();
+        newUserUsernameField = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         createAccountButton = new javax.swing.JButton();
         newUserPasswordField = new javax.swing.JPasswordField();
@@ -65,6 +68,7 @@ public class Display extends javax.swing.JFrame {
         adminLogoutButton = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         adminLoggedInAsLabel = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         userPanel = new javax.swing.JPanel();
         userSearchFlightButton = new javax.swing.JButton();
         userViewFlightHistoryButton = new javax.swing.JButton();
@@ -72,7 +76,7 @@ public class Display extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         userLogoutButton = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        userLoggedInAsLabel = new javax.swing.JLabel();
         flightSearchPanel = new javax.swing.JPanel();
         searchResultsPanel = new javax.swing.JPanel();
         selectTripButton = new javax.swing.JButton();
@@ -185,9 +189,9 @@ public class Display extends javax.swing.JFrame {
 
         jLabel20.setText("Password");
 
-        newUserUsername.addActionListener(new java.awt.event.ActionListener() {
+        newUserUsernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newUserUsernameActionPerformed(evt);
+                newUserUsernameFieldActionPerformed(evt);
             }
         });
 
@@ -215,7 +219,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel20)
                     .addComponent(jLabel21)
-                    .addComponent(newUserUsername)
+                    .addComponent(newUserUsernameField)
                     .addComponent(jLabel19)
                     .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(newUserPasswordField))
@@ -233,7 +237,7 @@ public class Display extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newUserUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newUserUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel20)
                 .addGap(8, 8, 8)
@@ -243,9 +247,9 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        getContentPane().add(loginPanel, "card4");
+        getContentPane().add(loginPanel, "loginCard");
 
-        jLabel25.setText("Trips");
+        jLabel25.setText("Trips:");
 
         adminDeleteTripButton.setText("Delete");
         adminDeleteTripButton.addActionListener(new java.awt.event.ActionListener() {
@@ -260,28 +264,52 @@ public class Display extends javax.swing.JFrame {
 
         adminTripsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Trip Number", "Airline", "Price", "Departure", "Destination", "Number of Legs"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(adminTripsTable);
 
         adminFlightsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Trip Number", "Leg Number", "Seats Available", "Date"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane6.setViewportView(adminFlightsTable);
 
         adminLogoutButton.setText("Logout");
@@ -293,6 +321,8 @@ public class Display extends javax.swing.JFrame {
 
         jLabel26.setText("Logged in as : ");
 
+        jLabel23.setText("Legs:");
+
         javax.swing.GroupLayout adminPanelLayout = new javax.swing.GroupLayout(adminPanel);
         adminPanel.setLayout(adminPanelLayout);
         adminPanelLayout.setHorizontalGroup(
@@ -300,25 +330,29 @@ public class Display extends javax.swing.JFrame {
             .addGroup(adminPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(adminEditAssignmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(adminPanelLayout.createSequentialGroup()
+                        .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 406, Short.MAX_VALUE)
+                        .addComponent(adminLogoutButton))
+                    .addGroup(adminPanelLayout.createSequentialGroup()
                         .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(adminPanelLayout.createSequentialGroup()
-                                    .addComponent(adminViewTripButton)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(adminDeleteTripButton))
-                                .addGroup(adminPanelLayout.createSequentialGroup()
-                                    .addComponent(jLabel25)
-                                    .addGap(429, 429, 429)))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(adminPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(adminLogoutButton)
+                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(adminPanelLayout.createSequentialGroup()
+                                .addGap(397, 397, 397)
+                                .addComponent(adminEditAssignmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminPanelLayout.createSequentialGroup()
+                                .addComponent(adminViewTripButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(adminDeleteTripButton)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         adminPanelLayout.setVerticalGroup(
@@ -329,22 +363,24 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(adminLogoutButton)
                     .addComponent(jLabel26)
                     .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addComponent(jLabel25)
+                .addGap(27, 27, 27)
+                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adminDeleteTripButton)
                     .addComponent(adminViewTripButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adminEditAssignmentButton)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        getContentPane().add(adminPanel, "card6");
+        getContentPane().add(adminPanel, "adminCard");
 
         userSearchFlightButton.setText("Search Flights");
 
@@ -383,7 +419,7 @@ public class Display extends javax.swing.JFrame {
                             .addGroup(userPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel24)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(userLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                         .addComponent(userLogoutButton)))
                 .addContainerGap())
@@ -398,7 +434,7 @@ public class Display extends javax.swing.JFrame {
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel24))))
                 .addGap(12, 12, 12)
                 .addComponent(userSearchFlightButton)
@@ -409,7 +445,7 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        getContentPane().add(userPanel, "card5");
+        getContentPane().add(userPanel, "userCard");
 
         searchResultsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Results", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
 
@@ -624,7 +660,7 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(flightSearchPanel, "card2");
+        getContentPane().add(flightSearchPanel, "flightPanel");
 
         paymentSubmitPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Payment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
 
@@ -777,7 +813,7 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap(134, Short.MAX_VALUE))
         );
 
-        getContentPane().add(paymentPanel, "card3");
+        getContentPane().add(paymentPanel, "paymentPanel");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -796,6 +832,35 @@ public class Display extends javax.swing.JFrame {
 
     private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
         // TODO add your handling code here:
+        String username = "";
+        String password = "";
+
+        username = newUserUsernameField.getText();
+        password = new String(newUserPasswordField.getPassword());
+        boolean addSuccess = false;
+        try
+        {
+            addSuccess = controller.addUser(username, password);
+        }
+        catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        
+        if(addSuccess)
+        {
+            JOptionPane.showMessageDialog(this, "Welcome: " + username);
+            CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+            userLoggedInAsLabel.setText(username);
+            cl.show(this.getContentPane(), "userCard");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "username taken");
+        }
+        
+        newUserUsernameField.setText("");
+        newUserPasswordField.setText("");
     }//GEN-LAST:event_createAccountButtonActionPerformed
 
     private void oldUserSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldUserSignInActionPerformed
@@ -809,45 +874,85 @@ public class Display extends javax.swing.JFrame {
         System.out.println("username: " + username);
         System.out.println("passwrod: " + password);
         
-        boolean validated = false;
-        try
-        {
-             validated = controller.validateUser(username, password);
-             System.out.println("in validated: " + validated);
-        }
-        catch(SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }    
-        
-        System.out.println("validated: " + validated);
+        boolean validated = false;        
+        validated = controller.validateUser(username, password);
+        System.out.println("in validated: " + validated);
         if(validated) 
         {            
             //System.out.print("validated");
             //change cards
+            //System.out.println()
+            CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+            
+            //determine user status
+            if(controller.getUserAccess().equals(controller.getAdmin()))
+            {
+                 adminLoggedInAsLabel.setText(username);
+                 controller.fillAdminTripTable();                 
+                 
+                 cl.show(this.getContentPane(), "adminCard");
+            }
+            else if(controller.getUserAccess().equals(controller.getRestricted()))
+            {
+                userLoggedInAsLabel.setText(username);
+                cl.show(this.getContentPane(), "userCard");
+            }
+            else
+            {
+                System.out.print("invalid access level");
+            }           
         }
         else
         {
            JOptionPane.showMessageDialog(this, "invalid username password combo");
         }        
+        
+        oldUserUsernameField.setText("");
+        oldUserPasswordField.setText("");
     }//GEN-LAST:event_oldUserSignInActionPerformed
 
     private void adminDeleteTripButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeleteTripButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adminDeleteTripButtonActionPerformed
 
-    private void newUserUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserUsernameActionPerformed
+    private void newUserUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserUsernameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_newUserUsernameActionPerformed
+        
+    }//GEN-LAST:event_newUserUsernameFieldActionPerformed
 
     private void adminLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLogoutButtonActionPerformed
-        // TODO add your handling code here:
+        //back to homescreen
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "loginCard");
+        
+        //clear tables        
     }//GEN-LAST:event_adminLogoutButtonActionPerformed
 
     private void oldUserPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldUserPasswordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_oldUserPasswordFieldActionPerformed
 
+    public void displayAdminTrips(List<Trip> trips)
+    {
+        javax.swing.table.DefaultTableModel adminTripsModel =
+            (javax.swing.table.DefaultTableModel)this.adminTripsTable.getModel();
+        // clear all the rows
+        for(int i = adminTripsModel.getRowCount()-1; i >= 0; i--) {
+            adminTripsModel.removeRow(i);
+        }
+        
+        //add back rows: trip_number, airline, price, departure, destination, number_of_legs
+        for(int i = 0; i < trips.size(); i++) {
+            adminTripsModel.addRow(new Object[] {
+                trips.get(i).getTrip_number(),
+                trips.get(i).getAirline(),
+                trips.get(i).getPrice(),
+                trips.get(i).getDeparture(),
+                trips.get(i).getDestination(),
+                trips.get(i).getNumber_of_legs()
+            });
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -918,10 +1023,10 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -940,7 +1045,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JTextField leavingTimeField;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPasswordField newUserPasswordField;
-    private javax.swing.JTextField newUserUsername;
+    private javax.swing.JTextField newUserUsernameField;
     private javax.swing.JPasswordField oldUserPasswordField;
     private javax.swing.JButton oldUserSignIn;
     private javax.swing.JTextField oldUserUsernameField;
@@ -964,6 +1069,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JButton selectTripButton;
     private javax.swing.ButtonGroup tripType;
     private javax.swing.JScrollPane userFlightHistoryTable;
+    private javax.swing.JLabel userLoggedInAsLabel;
     private javax.swing.JButton userLogoutButton;
     private javax.swing.JPanel userPanel;
     private javax.swing.JButton userSearchFlightButton;
