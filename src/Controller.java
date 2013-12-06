@@ -233,9 +233,9 @@ public class Controller {
         try
         {
             String username = loggedInUser.getUsername();            
-            List<Trip> history = dbHandler.getFlightHistory();        
+            List<Trip> history = dbHandler.getFlightHistory(username);        
             display.displayFlightHistory(history);
-            //dbHandler.getLegs(tripNum);
+            
         }
         catch(SQLException e)
         {

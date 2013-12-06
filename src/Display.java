@@ -223,7 +223,7 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(newUserPasswordField))
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +348,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminPanelLayout.createSequentialGroup()
                         .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 406, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
                         .addComponent(adminLogoutButton))
                     .addGroup(adminPanelLayout.createSequentialGroup()
                         .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,6 +393,11 @@ public class Display extends javax.swing.JFrame {
         getContentPane().add(adminPanel, "adminCard");
 
         userSearchFlightButton.setText("Search Flights");
+        userSearchFlightButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userSearchFlightButtonActionPerformed(evt);
+            }
+        });
 
         userViewFlightHistoryButton.setText("View Flight History");
         userViewFlightHistoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -406,14 +411,14 @@ public class Display extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Trip(s)"
+                "Trip Number", "Airline", "Price", "Departure", "Destination", "Number of Legs"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -427,6 +432,11 @@ public class Display extends javax.swing.JFrame {
         userFlightHistoryScroll.setViewportView(userFlightHistoryTable);
 
         userLogoutButton.setText("Logout");
+        userLogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userLogoutButtonActionPerformed(evt);
+            }
+        });
 
         jLabel24.setText("Logged in as: ");
 
@@ -437,7 +447,9 @@ public class Display extends javax.swing.JFrame {
             .addGroup(userPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 134, Short.MAX_VALUE))
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -447,7 +459,7 @@ public class Display extends javax.swing.JFrame {
                                 .addComponent(jLabel24)
                                 .addGap(18, 18, 18)
                                 .addComponent(userLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
                         .addComponent(userLogoutButton)))
                 .addContainerGap())
         );
@@ -485,15 +497,27 @@ public class Display extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Trip Number", "Airline", "Price", "Departure", "Destination", "Number of Legs"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         searchResultsTable.setViewportView(jTable1);
 
         javax.swing.GroupLayout searchResultsPanelLayout = new javax.swing.GroupLayout(searchResultsPanel);
@@ -503,10 +527,10 @@ public class Display extends javax.swing.JFrame {
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(searchResultsPanelLayout.createSequentialGroup()
+                    .addComponent(searchResultsTable, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchResultsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(selectTripButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(searchResultsTable, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
+                        .addComponent(selectTripButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         searchResultsPanelLayout.setVerticalGroup(
@@ -528,17 +552,17 @@ public class Display extends javax.swing.JFrame {
             }
         });
 
-        leavingDateField.setText("jTextField1");
+        leavingRangeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                leavingRangeFieldActionPerformed(evt);
+            }
+        });
 
-        leavingRangeField.setText("jTextField2");
-
-        leavingTimeField.setText("jTextField3");
-
-        arrivalDateField.setText("jTextField4");
-
-        arrivalRangeField.setText("jTextField5");
-
-        arrivalTimeField.setText("jTextField6");
+        arrivalRangeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arrivalRangeFieldActionPerformed(evt);
+            }
+        });
 
         leavingComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -548,17 +572,17 @@ public class Display extends javax.swing.JFrame {
 
         jLabel11.setText("Going To:");
 
-        jLabel12.setText("Date");
+        jLabel12.setText("Date (DD-MMM-YY)");
 
         jLabel13.setText("+/- days");
 
-        jLabel14.setText("Time");
+        jLabel14.setText("Time HH:MM:SS");
 
-        jLabel15.setText("Date");
+        jLabel15.setText("Date Date (DD-MMM-YY)");
 
         jLabel16.setText("+/- days");
 
-        jLabel17.setText("Time");
+        jLabel17.setText("Time Time HH:MM:SS");
 
         tripType.add(oneWayRadio);
         oneWayRadio.setText("One way");
@@ -582,42 +606,41 @@ public class Display extends javax.swing.JFrame {
                         .addComponent(oneWayRadio)
                         .addGap(18, 18, 18)
                         .addComponent(roundTripRadio)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicSearchPanelLayout.createSequentialGroup()
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(goingComboBox, 0, 261, Short.MAX_VALUE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)
+                            .addComponent(leavingComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(114, 114, 114)
                                 .addComponent(basicSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(basicSearchPanelLayout.createSequentialGroup()
                                 .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(goingComboBox, 0, 261, Short.MAX_VALUE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10)
-                                    .addComponent(leavingComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                                        .addComponent(arrivalDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(arrivalRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(arrivalTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(arrivalDateField)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel15)
+                                    .addComponent(leavingDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(basicSearchPanelLayout.createSequentialGroup()
                                         .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(leavingDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel15))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(leavingRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel13)
-                                            .addComponent(jLabel16))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel17)
+                                            .addComponent(jLabel16)
+                                            .addComponent(leavingRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel14)
-                                            .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(23, 23, 23))))
+                                            .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
+                                        .addComponent(arrivalRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(arrivalTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap())
         );
         basicSearchPanelLayout.setVerticalGroup(
             basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -649,7 +672,7 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(arrivalDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(arrivalRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(arrivalTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(basicSearchButton))
         );
 
@@ -663,14 +686,13 @@ public class Display extends javax.swing.JFrame {
             flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(flightSearchPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(flightSearchPanelLayout.createSequentialGroup()
                         .addComponent(basicSearchBackButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(basicSearchLogoutButton))
-                    .addGroup(flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(searchResultsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(basicSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(basicSearchPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchResultsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         flightSearchPanelLayout.setVerticalGroup(
@@ -687,7 +709,7 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(flightSearchPanel, "flightPanel");
+        getContentPane().add(flightSearchPanel, "flightSearchPanel");
 
         paymentSubmitPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Payment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
 
@@ -826,7 +848,7 @@ public class Display extends javax.swing.JFrame {
             .addGroup(paymentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(paymentSubmitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         paymentPanelLayout.setVerticalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1053,6 +1075,26 @@ public class Display extends javax.swing.JFrame {
         controller.fillUserFlightHistoryPanel();        
     }//GEN-LAST:event_userViewFlightHistoryButtonActionPerformed
 
+    private void userLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userLogoutButtonActionPerformed
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "loginCard");
+    }//GEN-LAST:event_userLogoutButtonActionPerformed
+
+    private void userSearchFlightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSearchFlightButtonActionPerformed
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "flightSearchPanel");    
+        
+        
+    }//GEN-LAST:event_userSearchFlightButtonActionPerformed
+
+    private void arrivalRangeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrivalRangeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_arrivalRangeFieldActionPerformed
+
+    private void leavingRangeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leavingRangeFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_leavingRangeFieldActionPerformed
+
     public void displayAdminTrips(List<Trip> trips)
     {
         javax.swing.table.DefaultTableModel adminTripsModel =
@@ -1094,6 +1136,28 @@ public class Display extends javax.swing.JFrame {
                 legs.get(i).getSeats_available(),
                 legs.get(i).getFlight_date(),
                 legs.get(i).getAssignment(),        
+            });
+        }
+    }
+    
+    public void displayFlightHistory(List<Trip> trips)
+    {
+         javax.swing.table.DefaultTableModel flightHistoryModel =
+            (javax.swing.table.DefaultTableModel)this.userFlightHistoryTable.getModel();
+        // clear all the rows
+        for(int i = flightHistoryModel.getRowCount()-1; i >= 0; i--) {
+            flightHistoryModel.removeRow(i);
+        }
+        
+        //add back rows: trip_number, airline, price, departure, destination, number_of_legs
+        for(int i = 0; i < trips.size(); i++) {
+            flightHistoryModel.addRow(new Object[] {
+                trips.get(i).getTrip_number(),
+                trips.get(i).getAirline(),
+                trips.get(i).getPrice(),
+                trips.get(i).getDeparture(),
+                trips.get(i).getDestination(),
+                trips.get(i).getNumber_of_legs()
             });
         }
     }

@@ -316,8 +316,47 @@ public class DBHandler {
         return changed;
     }
     
-    public List<Trip> getFlightHistory()
+    public List<Trip> getFlightHistory(String username) throws SQLException
     {
+        Statement stmt = null;
+        ResultSet trips = null;
+        List<Trip> flightHist = new ArrayList<Trip>();
         
+        try
+        {
+            String allTripsQuery = "SELECT * FROM TRIP,HAS_TRIP WHERE HAS_TRIP.USERNAME = '" + username + "' AND TRIP.TRIP_NUMBER = HAS_TRIP.TRIP_NUMBER";
+            stmt = conn.createStatement();
+            trips = stmt.executeQuery(allTripsQuery);
+            if(!trips.next())
+            {
+                System.out.println("no flight history");
+            }
+            else
+            {
+                do
+                {
+                    String tripNum = trips.getString("TRIP_NUMBER");
+                    String airline = trips.getString("AIRLINE");
+                    String price = trips.getString("PRICE");
+                    String depart = trips.getString("DEPARTURE");
+                    String dest = trips.getString("DESTINATION");
+                    String numLegs = trips.getString("NUMBER_OF_LEGS");
+                    
+                    flightHist.add(new Trip(tripNum, airline, price, depart, dest, numLegs));  
+                    
+                }while(trips.next());
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }
+        
+        //System.out.println("flight hist size: " + flightHist.size());
+        return flightHist;
     }
 }
