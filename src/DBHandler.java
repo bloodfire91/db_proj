@@ -157,4 +157,33 @@ public class DBHandler {
         
         return allTrips;
     }
+    
+    public boolean removeTrip(String tripNum) throws SQLException
+    {
+        boolean removed = false;
+        Statement stmt = null;
+        
+        try
+        {
+            // Create a Statement
+            stmt = conn.createStatement();
+            //check for user
+            stmt.executeQuery ("DELETE FROM TRIP where TRIP_NUMBER = '" + Integer.parseInt(tripNum) + "'");
+            
+            removed = true;
+        }
+        catch (SQLException e) 
+        { 
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            if(stmt != null)
+            {
+                stmt.close();
+            }
+        }
+        
+        return removed;
+    }
 }

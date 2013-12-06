@@ -156,6 +156,20 @@ public class Controller {
         display.displayAdminTrips(trips);
     }
     
+    public boolean removeTrip(String tripNum)
+    {
+        boolean removed = false;
+        try
+        {
+            removed = dbHandler.removeTrip(tripNum);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());                    
+        }
+        return removed;
+    }
+    
     //display GUI
     public static void main(String args[])
     {

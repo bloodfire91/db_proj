@@ -261,6 +261,11 @@ public class Display extends javax.swing.JFrame {
         adminEditAssignmentButton.setText("Edit Assignment");
 
         adminViewTripButton.setText("View");
+        adminViewTripButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminViewTripButtonActionPerformed(evt);
+            }
+        });
 
         adminTripsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -912,7 +917,42 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_oldUserSignInActionPerformed
 
     private void adminDeleteTripButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeleteTripButtonActionPerformed
-        // TODO add your handling code here:
+        
+        //make sure really want to delete
+         Object[] options = {"Yes", "No"};
+        int n = JOptionPane.showOptionDialog(
+            null,
+            "Are you sure you would like to remove this trip?",
+            "Remove Item Confirmation",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE,
+            null,           //do not use a custom Icon
+            options,        //the titles of buttons
+            options[1]      //default to keeping the row
+        );
+        
+        if(n!=JOptionPane.YES_OPTION)
+        {
+            return;
+        }
+        
+        int index = this.adminTripsTable.getSelectedRow();
+        //System.out.println("selected row: " + index);       
+        
+        javax.swing.table.DefaultTableModel inventoryModel = (javax.swing.table.DefaultTableModel)adminTripsTable.getModel();
+        Object tripNum = inventoryModel.getValueAt(index, 0);
+        //System.out.println("trip num: " + (String)tripNum);      
+        
+        //clear from database
+        if(controller.removeTrip((String) tripNum))
+        {
+            // clear all the row
+            inventoryModel.removeRow(index);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Trip " + tripNum + " could not be removed");
+        }
     }//GEN-LAST:event_adminDeleteTripButtonActionPerformed
 
     private void newUserUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserUsernameFieldActionPerformed
@@ -931,6 +971,12 @@ public class Display extends javax.swing.JFrame {
     private void oldUserPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldUserPasswordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_oldUserPasswordFieldActionPerformed
+
+    private void adminViewTripButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminViewTripButtonActionPerformed
+        //fill leg table from trip data
+        
+        
+    }//GEN-LAST:event_adminViewTripButtonActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
     {
