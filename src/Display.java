@@ -9,13 +9,19 @@
  */
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
-public class BookingFrame extends javax.swing.JFrame {
-
+public class Display extends javax.swing.JFrame {
+    private Controller controller;
+    
     /**
      * Creates new form Display
      */
-    public BookingFrame() {
+    public Display() {
         initComponents();
+    }
+    
+    public Display(Controller controller) {
+        initComponents();
+        this.controller = controller;
     }
 
     /**
@@ -31,19 +37,19 @@ public class BookingFrame extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
         OldUserSignIn = new javax.swing.JPanel();
-        oldUserUsername = new javax.swing.JTextField();
+        oldUserUsernameField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        oldUserPassword = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         oldUserSignIn = new javax.swing.JButton();
+        oldUserPasswordField = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel19 = new javax.swing.JLabel();
-        newUserPassword = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         newUserUsername = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         createAccountButton = new javax.swing.JButton();
+        newUserPasswordField = new javax.swing.JPasswordField();
         adminPanel = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         adminDeleteTripButton = new javax.swing.JButton();
@@ -118,11 +124,7 @@ public class BookingFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        oldUserUsername.setText("jTextField15");
-
         jLabel9.setText("Username");
-
-        oldUserPassword.setText("jTextField16");
 
         jLabel18.setText("Password");
 
@@ -136,6 +138,12 @@ public class BookingFrame extends javax.swing.JFrame {
             }
         });
 
+        oldUserPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oldUserPasswordFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout OldUserSignInLayout = new javax.swing.GroupLayout(OldUserSignIn);
         OldUserSignIn.setLayout(OldUserSignInLayout);
         OldUserSignInLayout.setHorizontalGroup(
@@ -146,9 +154,9 @@ public class BookingFrame extends javax.swing.JFrame {
                     .addComponent(jLabel22)
                     .addComponent(jLabel18)
                     .addComponent(jLabel9)
-                    .addComponent(oldUserUsername)
-                    .addComponent(oldUserPassword)
-                    .addComponent(oldUserSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                    .addComponent(oldUserUsernameField)
+                    .addComponent(oldUserSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(oldUserPasswordField))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         OldUserSignInLayout.setVerticalGroup(
@@ -159,12 +167,12 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(oldUserUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(oldUserUsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel18)
-                .addGap(8, 8, 8)
-                .addComponent(oldUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(oldUserPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addComponent(oldUserSignIn)
                 .addGap(17, 17, 17))
         );
@@ -172,16 +180,8 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel19.setText("New User");
 
-        newUserPassword.setText("jTextField16");
-        newUserPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newUserPasswordActionPerformed(evt);
-            }
-        });
-
         jLabel20.setText("Password");
 
-        newUserUsername.setText("jTextField15");
         newUserUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newUserUsernameActionPerformed(evt);
@@ -213,9 +213,9 @@ public class BookingFrame extends javax.swing.JFrame {
                     .addComponent(jLabel20)
                     .addComponent(jLabel21)
                     .addComponent(newUserUsername)
-                    .addComponent(newUserPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(jLabel19)
-                    .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(newUserPasswordField))
                 .addContainerGap(266, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
@@ -234,7 +234,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel20)
                 .addGap(8, 8, 8)
-                .addComponent(newUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newUserPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(createAccountButton)
                 .addContainerGap(77, Short.MAX_VALUE))
@@ -797,15 +797,31 @@ public class BookingFrame extends javax.swing.JFrame {
 
     private void oldUserSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldUserSignInActionPerformed
         // TODO add your handling code here:
+        String username = "";
+        String password = "";
+
+        username = oldUserUsernameField.getText();
+        password = new String(oldUserPasswordField.getPassword());
+        
+        System.out.println("username: " + username);
+        System.out.println("passwrod: " + password);
+        
+        if(controller.validateUser(username, password)) 
+        {
+            
+            //System.out.print("validated");
+            //change cards
+        }
+        else
+        {
+           // System.out.print("not validated");
+            //change cards
+        }        
     }//GEN-LAST:event_oldUserSignInActionPerformed
 
     private void adminDeleteTripButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminDeleteTripButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adminDeleteTripButtonActionPerformed
-
-    private void newUserPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newUserPasswordActionPerformed
 
     private void newUserUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserUsernameActionPerformed
         // TODO add your handling code here:
@@ -814,6 +830,10 @@ public class BookingFrame extends javax.swing.JFrame {
     private void adminLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminLogoutButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_adminLogoutButtonActionPerformed
+
+    private void oldUserPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oldUserPasswordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_oldUserPasswordFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -832,20 +852,20 @@ public class BookingFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookingFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookingFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookingFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookingFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookingFrame().setVisible(true);
+                new Display().setVisible(true);
             }
         });
     }
@@ -906,11 +926,11 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JTextField leavingRangeField;
     private javax.swing.JTextField leavingTimeField;
     private javax.swing.JPanel loginPanel;
-    private javax.swing.JTextField newUserPassword;
+    private javax.swing.JPasswordField newUserPasswordField;
     private javax.swing.JTextField newUserUsername;
-    private javax.swing.JTextField oldUserPassword;
+    private javax.swing.JPasswordField oldUserPasswordField;
     private javax.swing.JButton oldUserSignIn;
-    private javax.swing.JTextField oldUserUsername;
+    private javax.swing.JTextField oldUserUsernameField;
     private javax.swing.JRadioButton oneWayRadio;
     private javax.swing.JButton paymenLogoutButton;
     private javax.swing.JTextField paymentAccountNameField;

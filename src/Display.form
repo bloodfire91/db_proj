@@ -55,9 +55,9 @@
                       <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="newUserUsername" alignment="0" max="32767" attributes="0"/>
-                      <Component id="newUserPassword" alignment="0" pref="125" max="32767" attributes="0"/>
                       <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
-                      <Component id="createAccountButton" alignment="0" max="32767" attributes="0"/>
+                      <Component id="createAccountButton" alignment="0" pref="125" max="32767" attributes="0"/>
+                      <Component id="newUserPasswordField" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="266" max="32767" attributes="0"/>
               </Group>
@@ -79,7 +79,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="newUserPassword" min="-2" max="-2" attributes="0"/>
+                  <Component id="newUserPasswordField" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="createAccountButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="77" max="32767" attributes="0"/>
@@ -99,9 +99,9 @@
                           <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                          <Component id="oldUserUsername" max="32767" attributes="0"/>
-                          <Component id="oldUserPassword" alignment="0" max="32767" attributes="0"/>
+                          <Component id="oldUserUsernameField" max="32767" attributes="0"/>
                           <Component id="oldUserSignIn" alignment="0" pref="125" max="32767" attributes="0"/>
+                          <Component id="oldUserPasswordField" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -115,12 +115,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="oldUserUsername" min="-2" max="-2" attributes="0"/>
+                      <Component id="oldUserUsernameField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="oldUserPassword" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="oldUserPasswordField" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="oldUserSignIn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
@@ -128,19 +128,11 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="oldUserUsername">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField15"/>
-              </Properties>
+            <Component class="javax.swing.JTextField" name="oldUserUsernameField">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Username"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="oldUserPassword">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField16"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel18">
@@ -164,6 +156,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="oldUserSignInActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JPasswordField" name="oldUserPasswordField">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="oldUserPasswordFieldActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -176,23 +173,12 @@
             <Property name="text" type="java.lang.String" value="New User"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="newUserPassword">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField16"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newUserPasswordActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>
             <Property name="text" type="java.lang.String" value="Password"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="newUserUsername">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jTextField15"/>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newUserUsernameActionPerformed"/>
           </Events>
@@ -209,6 +195,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createAccountButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="newUserPasswordField">
         </Component>
       </SubComponents>
     </Container>

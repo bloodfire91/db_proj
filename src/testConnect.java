@@ -29,12 +29,36 @@ public class testConnect {
     Statement stmt = conn.createStatement ();
 
     // Select the ENAME column from the EMP table
-    ResultSet rset = stmt.executeQuery ("select * from AIRPLANE");
+    String uname = "t";
+    String pswd = "t";
+    ResultSet rset = stmt.executeQuery ("select username from USERS where username = '" + uname + "' and user_password = '" + pswd + "'");
 
     // Iterate through the result and print the employee names
-    while (rset.next ())
-      System.out.println (rset.getString (1));
+    //while (rset.next ())
+    //  System.out.println ("string index: " + rset.getString ("username"));
+    if(!rset.next())
+    {
+        System.out.println("not there");
+    }
+    else
+    {
+        System.out.println("there");
+    }
+    
+    System.out.println("inserting");
+    String insertUser = "INSERT INTO USERS(USERNAME, USER_PASSWORD, USER_ACCESS) VALUES('t', 't', 't')";
+    Statement insertStatement = conn.createStatement();
+    
+    try
+    {
+        insertStatement.executeUpdate(insertUser);
+    }
+    catch(SQLException e)
+    {
+        System.out.println(e.getMessage());
+    }
 
+    stmt.close();
     conn.close(); // ** IMPORTANT : Close connections when done **
   }
 }
