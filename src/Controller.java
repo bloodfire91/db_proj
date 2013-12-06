@@ -222,6 +222,27 @@ public class Controller {
     
     }
     
+    public void setLoggedInUser(String username, String password)
+    {
+        this.loggedInUser = new User(username, password);
+    }
+    
+    public void fillUserFlightHistoryPanel()
+    {
+        
+        try
+        {
+            String username = loggedInUser.getUsername();            
+            List<Trip> history = dbHandler.getFlightHistory();        
+            display.displayFlightHistory(history);
+            //dbHandler.getLegs(tripNum);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     //display GUI
     public static void main(String args[])
     {

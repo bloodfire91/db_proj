@@ -315,4 +315,9 @@ public class DBHandler {
         }
         return changed;
     }
+    
+    public List<Trip> getFlightHistory()
+    {
+        
+    }
 }

@@ -72,8 +72,8 @@ public class Display extends javax.swing.JFrame {
         userPanel = new javax.swing.JPanel();
         userSearchFlightButton = new javax.swing.JButton();
         userViewFlightHistoryButton = new javax.swing.JButton();
-        userFlightHistoryTable = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        userFlightHistoryScroll = new javax.swing.JScrollPane();
+        userFlightHistoryTable = new javax.swing.JTable();
         userLogoutButton = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         userLoggedInAsLabel = new javax.swing.JLabel();
@@ -395,19 +395,36 @@ public class Display extends javax.swing.JFrame {
         userSearchFlightButton.setText("Search Flights");
 
         userViewFlightHistoryButton.setText("View Flight History");
+        userViewFlightHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userViewFlightHistoryButtonActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        userFlightHistoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Trip(s)"
             }
-        ));
-        userFlightHistoryTable.setViewportView(jTable2);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        userFlightHistoryScroll.setViewportView(userFlightHistoryTable);
 
         userLogoutButton.setText("Logout");
 
@@ -420,7 +437,7 @@ public class Display extends javax.swing.JFrame {
             .addGroup(userPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userFlightHistoryTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -451,7 +468,7 @@ public class Display extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(userViewFlightHistoryButton)
                 .addGap(18, 18, 18)
-                .addComponent(userFlightHistoryTable, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
@@ -906,6 +923,7 @@ public class Display extends javax.swing.JFrame {
             {
                 userLoggedInAsLabel.setText(username);
                 cl.show(this.getContentPane(), "userCard");
+                controller.setLoggedInUser(username, password);
             }
             else
             {
@@ -1030,6 +1048,10 @@ public class Display extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_adminEditAssignmentButtonActionPerformed
+
+    private void userViewFlightHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userViewFlightHistoryButtonActionPerformed
+        controller.fillUserFlightHistoryPanel();        
+    }//GEN-LAST:event_userViewFlightHistoryButtonActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
     {
@@ -1160,7 +1182,6 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JComboBox leavingComboBox;
     private javax.swing.JTextField leavingDateField;
     private javax.swing.JTextField leavingRangeField;
@@ -1190,7 +1211,8 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JScrollPane searchResultsTable;
     private javax.swing.JButton selectTripButton;
     private javax.swing.ButtonGroup tripType;
-    private javax.swing.JScrollPane userFlightHistoryTable;
+    private javax.swing.JScrollPane userFlightHistoryScroll;
+    private javax.swing.JTable userFlightHistoryTable;
     private javax.swing.JLabel userLoggedInAsLabel;
     private javax.swing.JButton userLogoutButton;
     private javax.swing.JPanel userPanel;
