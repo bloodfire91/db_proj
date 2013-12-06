@@ -359,4 +359,78 @@ public class DBHandler {
         //System.out.println("flight hist size: " + flightHist.size());
         return flightHist;
     }
+    
+    public String[] getLeavingFromAirports() throws SQLException
+    {
+        Statement stmt = null;
+        ResultSet rset = null;
+        List<String> departingPorts = new ArrayList<String>();
+        
+        try
+        {
+            String allTripsQuery = "SELECT * FROM DEPARTURE";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(allTripsQuery);
+            if(!rset.next())
+            {
+                System.out.println("no departing airports");
+            }
+            else
+            {
+                do
+                {
+                    String code = rset.getString("CODE");             
+                    departingPorts.add(code);
+                    
+                }while(rset.next());
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }
+        
+        return departingPorts.toArray(new String[departingPorts.size()]);
+    }
+    
+    public String[] getGoingToAirports() throws SQLException
+    {
+        Statement stmt = null;
+        ResultSet rset = null;
+        List<String> arrivingPorts = new ArrayList<String>();
+        
+        try
+        {
+            String allTripsQuery = "SELECT * FROM ARRIVAL";
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(allTripsQuery);
+            if(!rset.next())
+            {
+                System.out.println("no airplanes empty");
+            }
+            else
+            {
+                do
+                {
+                    String code = rset.getString("CODE");             
+                    arrivingPorts.add(code);
+                    
+                }while(rset.next());
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }
+        
+        return arrivingPorts.toArray(new String[arrivingPorts.size()]);
+    }
 }

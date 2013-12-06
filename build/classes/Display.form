@@ -607,7 +607,7 @@
     <Container class="javax.swing.JPanel" name="flightSearchPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-          <CardConstraints cardName="flightSearchPanel"/>
+          <CardConstraints cardName="flightSearchCard"/>
         </Constraint>
       </Constraints>
 
@@ -979,6 +979,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Round Trip"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundTripRadioActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -991,13 +994,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Back"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="basicSearchBackButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="paymentPanel">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-          <CardConstraints cardName="paymentPanel"/>
+          <CardConstraints cardName="paymentCard"/>
         </Constraint>
       </Constraints>
 

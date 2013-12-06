@@ -14,6 +14,8 @@ public class Controller {
     private Payment currentPayment;
     private Trip selectedTrip;
     private DBHandler dbHandler;
+    private TripType tripType = TripType.ONE_WAY;
+    
     //private Connection conn;
     //private String userAccess;
     //private String ADMIN = "A";
@@ -242,7 +244,29 @@ public class Controller {
             System.out.println(e.getMessage());
         }
     }
+    public void populateSearchComboBoxes()
+    {
+        String[] leavingFrom = null;
+        String[] goingTo = null;
+        
+        try
+        {
+            leavingFrom = dbHandler.getLeavingFromAirports();
+            goingTo = dbHandler.getGoingToAirports();
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        
+        display.setLeavingGoingCombos(leavingFrom, goingTo);
+    }
     
+    public void setTripType(TripType t)
+    {
+        this.tripType = t;
+    }
+            
     //display GUI
     public static void main(String args[])
     {

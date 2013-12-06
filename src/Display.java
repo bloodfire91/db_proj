@@ -594,6 +594,11 @@ public class Display extends javax.swing.JFrame {
 
         tripType.add(roundTripRadio);
         roundTripRadio.setText("Round Trip");
+        roundTripRadio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundTripRadioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout basicSearchPanelLayout = new javax.swing.GroupLayout(basicSearchPanel);
         basicSearchPanel.setLayout(basicSearchPanelLayout);
@@ -679,6 +684,11 @@ public class Display extends javax.swing.JFrame {
         basicSearchLogoutButton.setText("Logout");
 
         basicSearchBackButton.setText("Back");
+        basicSearchBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                basicSearchBackButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout flightSearchPanelLayout = new javax.swing.GroupLayout(flightSearchPanel);
         flightSearchPanel.setLayout(flightSearchPanelLayout);
@@ -709,7 +719,7 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(flightSearchPanel, "flightSearchPanel");
+        getContentPane().add(flightSearchPanel, "flightSearchCard");
 
         paymentSubmitPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Payment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
 
@@ -862,7 +872,7 @@ public class Display extends javax.swing.JFrame {
                 .addContainerGap(134, Short.MAX_VALUE))
         );
 
-        getContentPane().add(paymentPanel, "paymentPanel");
+        getContentPane().add(paymentPanel, "paymentCard");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -872,11 +882,13 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_selectTripButtonActionPerformed
 
     private void basicSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchButtonActionPerformed
-        // TODO add your handling code here:
+        System.out.println((String)leavingComboBox.getSelectedItem());
+        System.out.println((String)goingComboBox.getSelectedItem());
     }//GEN-LAST:event_basicSearchButtonActionPerformed
 
     private void oneWayRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneWayRadioActionPerformed
         // TODO add your handling code here:
+        controller.setTripType(TripType.ONE_WAY);
     }//GEN-LAST:event_oneWayRadioActionPerformed
 
     private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
@@ -1082,9 +1094,10 @@ public class Display extends javax.swing.JFrame {
 
     private void userSearchFlightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSearchFlightButtonActionPerformed
         CardLayout cl = (CardLayout) this.getContentPane().getLayout();
-        cl.show(this.getContentPane(), "flightSearchPanel");    
+        cl.show(this.getContentPane(), "flightSearchCard");    
         
-        
+        //*******populate combo boxes
+        controller.populateSearchComboBoxes();
     }//GEN-LAST:event_userSearchFlightButtonActionPerformed
 
     private void arrivalRangeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrivalRangeFieldActionPerformed
@@ -1094,6 +1107,15 @@ public class Display extends javax.swing.JFrame {
     private void leavingRangeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leavingRangeFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_leavingRangeFieldActionPerformed
+
+    private void basicSearchBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchBackButtonActionPerformed
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "userPanel"); 
+    }//GEN-LAST:event_basicSearchBackButtonActionPerformed
+
+    private void roundTripRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundTripRadioActionPerformed
+        controller.setTripType(TripType.ROUND_TRIP);
+    }//GEN-LAST:event_roundTripRadioActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
     {
@@ -1161,6 +1183,22 @@ public class Display extends javax.swing.JFrame {
             });
         }
     }
+    
+    public void setLeavingGoingCombos(String[] leaving, String[] going)
+    {
+        leavingComboBox.removeAllItems();
+        goingComboBox.removeAllItems();
+        
+        for(String l: leaving)
+        {
+            leavingComboBox.addItem(l);
+        }
+        for(String g: going)
+        {
+            goingComboBox.addItem(g);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
