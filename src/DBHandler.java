@@ -249,7 +249,70 @@ public class DBHandler {
         finally
         {
             stmt.close();
+            assnStmt.close();
         }
         return allLegs;
+    }
+    
+    public List<String> getPlaneOptions() throws SQLException
+    {
+        Statement stmt = null;
+        ResultSet trips = null;
+        List<String> allPlanes = new ArrayList<String>();
+        
+        try
+        {
+            String allTripsQuery = "SELECT * FROM AIRPLANE";
+            stmt = conn.createStatement();
+            trips = stmt.executeQuery(allTripsQuery);
+            if(!trips.next())
+            {
+                System.out.println("no airplanes empty");
+            }
+            else
+            {
+                do
+                {
+                    String planeID = trips.getString("ID");             
+                    allPlanes.add(planeID);
+                    
+                }while(trips.next());
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }
+        
+        return allPlanes;
+    }
+    
+    public boolean changePlane(String tripNum, String legNum, String plane) throws SQLException
+    {
+        boolean changed = false;
+        Statement stmt = null;
+        ResultSet trips = null;
+        List<String> allPlanes = new ArrayList<String>();
+        
+        try
+        {
+            String updatePlane = "UPDATE ASSIGN SET ID = '" + plane + "' WHERE LEG_NUMBER = '" + legNum + "' AND TRIP_NUMBER = '" + tripNum + "'";
+            stmt = conn.createStatement();
+            stmt.executeQuery(updatePlane);
+            changed = true;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }
+        return changed;
     }
 }

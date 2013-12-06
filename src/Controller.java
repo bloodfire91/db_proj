@@ -191,6 +191,37 @@ public class Controller {
         }
     }
     
+    public List<String> getPlaneOptions()
+    {
+        List<String> options = null;
+        
+        try
+        {
+            options = dbHandler.getPlaneOptions();
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        
+        return options;
+    }
+    
+    public boolean changePlane(String tripNum, String legNum, String plane)
+    {
+        boolean changed = false;
+        try
+        {
+            changed = dbHandler.changePlane(tripNum, legNum, plane);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());                    
+        }
+        return changed;
+    
+    }
+    
     //display GUI
     public static void main(String args[])
     {

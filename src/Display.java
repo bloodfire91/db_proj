@@ -259,6 +259,11 @@ public class Display extends javax.swing.JFrame {
         });
 
         adminEditAssignmentButton.setText("Edit Assignment");
+        adminEditAssignmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminEditAssignmentButtonActionPerformed(evt);
+            }
+        });
 
         adminViewTripButton.setText("View");
         adminViewTripButton.addActionListener(new java.awt.event.ActionListener() {
@@ -981,11 +986,50 @@ public class Display extends javax.swing.JFrame {
             return;
         }
         
-        javax.swing.table.DefaultTableModel inventoryModel = (javax.swing.table.DefaultTableModel)adminTripsTable.getModel();
-        Object tripNum = inventoryModel.getValueAt(index, 0);
+        javax.swing.table.DefaultTableModel adminTableModel = (javax.swing.table.DefaultTableModel)adminTripsTable.getModel();
+        Object tripNum = adminTableModel.getValueAt(index, 0);
         
         controller.fillAdminLegTable((String)tripNum);        
     }//GEN-LAST:event_adminViewTripButtonActionPerformed
+
+    private void adminEditAssignmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminEditAssignmentButtonActionPerformed
+        //fill leg table w legs corresp to trip
+        int index = this.adminLegsTable.getSelectedRow();
+        //System.out.println("selected row: " + index);       
+        if(index < 0)
+        {
+            return;
+        }
+        
+        javax.swing.table.DefaultTableModel legTableModel = (javax.swing.table.DefaultTableModel)adminLegsTable.getModel();
+        Object tripNum = legTableModel.getValueAt(index, 0);
+        Object legNum = legTableModel.getValueAt(index, 1);
+        Object currentPlane = legTableModel.getValueAt(index, 4);
+        
+        List<String> planes = controller.getPlaneOptions();
+        String options[] = planes.toArray(new String[planes.size()]);
+        
+        String s = (String)JOptionPane.showInputDialog(
+                    this,
+                    "Select different plane: ",
+                    "Customized Dialog",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    "");        
+        
+        if(s.equals((String)currentPlane))
+        {
+            return;
+        }
+        else
+        {
+            //change plane & refresh table
+            controller.changePlane((String)tripNum, (String)legNum, s);            
+            controller.fillAdminLegTable((String)tripNum);
+        }
+        
+    }//GEN-LAST:event_adminEditAssignmentButtonActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
     {
