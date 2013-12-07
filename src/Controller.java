@@ -346,7 +346,7 @@ public class Controller {
     {
         try
         {
-            return dbHandler.addPaymentAndReservation(payment, reservation, selectedTrips);       
+            return dbHandler.addPaymentAndReservation(payment, reservation, selectedTrips, loggedInUser);       
         }
         catch(SQLException e)
         {

@@ -2,22 +2,26 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 /**
  *
  * @author Robin
  */
 public class Reservation {
-    private String reservation_number, email, username, address, phone_number, reservation_date;
+    private String reservation_number, email, username, address, phone_number;
+    private Date reservation_date;
     
-    public Reservation(String reservation_number, String email, 
-            String address, String phone_number, String reservation_date)
+    public Reservation(String email, 
+            String address, String phone_number)
     {
-        this.reservation_number = reservation_number;
         this.email = email;
         this.address = address;
         this.phone_number = phone_number;
-        this.reservation_date = reservation_date;
+        this.reservation_date = new Date();
+        
+        System.out.println(reservation_date.toString());
     }
 
     /**
@@ -58,7 +62,7 @@ public class Reservation {
     /**
      * @return the reservation_date
      */
-    public String getReservation_date() {
+    public Date getReservation_date() {
         return reservation_date;
     }
 }

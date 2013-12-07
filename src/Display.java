@@ -1317,13 +1317,13 @@ public class Display extends javax.swing.JFrame {
         
         Set<String> set = controller.getSelectedTrips().keySet();
         String resNum = String.valueOf(rand.nextInt(100));
-        String date = sdt.format(cal.getTime());
+        
         Payment payment = new 
-                Payment(String.valueOf(rand.nextInt(100)), resNum , date, accountNum, accountName);
+                Payment(accountNum, accountName);
         
         String address = street.concat(state).concat(zip);
         Reservation reservation =
-                new Reservation(resNum, email, address, phone, date);
+                new Reservation(email, address, phone);
         
         if(controller.addPaymentAndReservation(payment, reservation))
         {
@@ -1331,7 +1331,7 @@ public class Display extends javax.swing.JFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(this, "payment could not be added.\n check all fields");
+            JOptionPane.showMessageDialog(this, "payment could not be added.\n check all fields \nyou may have paid this trip already");
         }
     }//GEN-LAST:event_paymentSubmitButtonActionPerformed
 

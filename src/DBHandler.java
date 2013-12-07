@@ -3,10 +3,14 @@
  * and open the template in the editor.
  */
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.Random;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -503,7 +507,7 @@ public class DBHandler {
         return query;
     }
     
-    public boolean addPaymentAndReservation(Payment payment, Reservation reservation, HashMap<String, String> selectedTrips) throws SQLException
+    public boolean addPaymentAndReservation(Payment payment, Reservation reservation, HashMap<String, String> selectedTrips, User user) throws SQLException
     {
         boolean added = false;
         PreparedStatement payStmt = null;
@@ -516,22 +520,55 @@ public class DBHandler {
         try
         {
             conn.setAutoCommit(false);
-            /*String insertPayment = "INSERT INTO PAYMENT"
+            String insertPayment = "INSERT INTO PAYMENT"
                     + " (TRANSACTION_NUMBER, TRIP_NUMBER, RESERVATION_NUMBER, PAYMENT_DATE, ACCOUNT_NUM, NAME_ON_ACCOUNT)"
                     + " VALUES(?,?,?,?,?,?)";
             String insertReservation = "INSERT INTO RESERVATION"
                     + " (RESERVATION_NUMBER, EMAIL, USERNAME, ADDRESS, PHONE_NUMBER, RESERVATION_DATE)"
                     + " VALUES(?,?,?,?,?,?)";
+            List<Integer> tripNumbers = new ArrayList<Integer>();
+            Set<String> set = selectedTrips.keySet();            
+            for(String s: set)
+            {
+                tripNumbers.add(Integer.parseInt(s));
+            }
+            
+            Random rand = new Random(System.currentTimeMillis());
+            
+            
+            int reservNum = rand.nextInt(100);
+            
+            //Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdt = new SimpleDateFormat ("dd-MMM-yy");
+        
+            System.out.println("payment date: " + sdt.format(payment.getPayment_date()));
             
             payStmt = conn.prepareStatement(insertPayment);
-            reservStmt = conn.prepareStatement(insertReservation);    */
+            payStmt.setInt(1, rand.nextInt(100));//transac
+            payStmt.setInt(2, tripNumbers.get(0));//trip
+            payStmt.setInt(3, reservNum);//reservatoin
+            payStmt.setDate(4, new java.sql.Date(payment.getPayment_date().getTime()));//payment date
+            payStmt.setInt(5, Integer.parseInt(payment.getAccount_num()));//account num
+            payStmt.setString(6, payment.getName_on_account());//name on account   
+            payStmt.executeUpdate();
+            
+
+            reservStmt = conn.prepareStatement(insertReservation);
+            reservStmt.setInt(1, reservNum);
+            reservStmt.setString(2, reservation.getEmail());
+            reservStmt.setString(3, user.getUsername());
+            reservStmt.setString(4, reservation.getAddress());
+            reservStmt.setString(5, reservation.getPhone_number());
+            reservStmt.setDate(6, new java.sql.Date(reservation.getReservation_date().getTime()));
+            reservStmt.executeUpdate();
             
             String insertHasTrip = "INSERT INTO HAS_TRIP (USERNAME, TRIP_NUMBER) "
                     + "VALUES (?,?)";
             hasStmt = conn.prepareStatement(insertHasTrip);
-            hasStmt.setString(1, "user");
-            hasStmt.setInt(2, 3);
+            hasStmt.setString(1, user.getUsername());
+            hasStmt.setInt(2, tripNumbers.get(0));
             hasStmt.executeUpdate();
+            
             conn.commit();
             System.out.println("committed!");
             /*payStmt.setInt(1, Integer.parseInt(transNum));
@@ -557,9 +594,23 @@ public class DBHandler {
         }
         finally
         {
-            //payStmt.close();
-            //reservStmt.close();
-            hasStmt.close();
+            if(payStmt != null)
+            {
+                payStmt.close();
+            }
+            else
+            {
+                System.out.println("null paystmt");
+            }
+            if(reservStmt != null)
+            {
+                reservStmt.close();
+            }
+            else
+            {
+                System.out.println("null reservStmt");
+            }
+            //hasStmt.close();
             conn.setAutoCommit(true);
         }
         return added;
