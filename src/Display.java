@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.util.List;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -84,24 +87,20 @@ public class Display extends javax.swing.JFrame {
         searchResultsTable = new javax.swing.JTable();
         basicSearchPanel = new javax.swing.JPanel();
         basicSearchButton = new javax.swing.JButton();
-        leavingTimeField = new javax.swing.JTextField();
-        goingTimeField = new javax.swing.JTextField();
         leavingComboBox = new javax.swing.JComboBox();
         goingComboBox = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         oneWayRadio = new javax.swing.JRadioButton();
         roundTripRadio = new javax.swing.JRadioButton();
         plusMinusLeavingCombo = new javax.swing.JComboBox();
         plusMinusGoingCombo = new javax.swing.JComboBox();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        leavingDatePicker = new org.jdesktop.swingx.JXDatePicker();
+        goingDatePicker = new org.jdesktop.swingx.JXDatePicker();
         basicSearchLogoutButton = new javax.swing.JButton();
         basicSearchBackButton = new javax.swing.JButton();
         paymentPanel = new javax.swing.JPanel();
@@ -527,7 +526,7 @@ public class Display extends javax.swing.JFrame {
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchResultsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(selectTripButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -537,7 +536,7 @@ public class Display extends javax.swing.JFrame {
             searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(selectTripButton)
                 .addContainerGap())
@@ -560,17 +559,13 @@ public class Display extends javax.swing.JFrame {
 
         jLabel11.setText("Going To:");
 
-        jLabel12.setText("Date (DD-MMM-YY)");
+        jLabel12.setText("Date");
 
         jLabel13.setText("+/- days");
 
-        jLabel14.setText("Time HH:MM:SS");
-
-        jLabel15.setText("Date Date (DD-MMM-YY)");
+        jLabel15.setText("Date");
 
         jLabel16.setText("+/- days");
-
-        jLabel17.setText("Time Time HH:MM:SS");
 
         tripType.add(oneWayRadio);
         oneWayRadio.setText("One way");
@@ -603,7 +598,7 @@ public class Display extends javax.swing.JFrame {
                         .addComponent(oneWayRadio)
                         .addGap(18, 18, 18)
                         .addComponent(roundTripRadio)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicSearchPanelLayout.createSequentialGroup()
                         .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(goingComboBox, 0, 261, Short.MAX_VALUE)
@@ -611,30 +606,29 @@ public class Display extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(leavingComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(basicSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(basicSearchPanelLayout.createSequentialGroup()
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicSearchPanelLayout.createSequentialGroup()
                                 .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel16)
-                                            .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(25, 25, 25)
-                                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel14)
-                                            .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                                        .addComponent(plusMinusGoingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(25, 25, 25)
-                                        .addComponent(goingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                    .addComponent(jLabel15))
+                                .addGap(87, 87, 87)
+                                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel16))
+                                .addGap(24, 24, 24))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicSearchPanelLayout.createSequentialGroup()
+                                .addComponent(leavingDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(basicSearchPanelLayout.createSequentialGroup()
+                                .addComponent(goingDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(plusMinusGoingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicSearchPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(basicSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         basicSearchPanelLayout.setVerticalGroup(
@@ -644,30 +638,32 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(oneWayRadio)
                     .addComponent(roundTripRadio))
                 .addGap(18, 18, 18)
-                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(leavingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(goingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(goingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(plusMinusGoingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(leavingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(goingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(basicSearchPanelLayout.createSequentialGroup()
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(leavingDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(goingDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(plusMinusGoingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(basicSearchButton))
         );
 
@@ -693,7 +689,7 @@ public class Display extends javax.swing.JFrame {
                         .addComponent(basicSearchLogoutButton))
                     .addComponent(basicSearchPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchResultsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         flightSearchPanelLayout.setVerticalGroup(
             flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -872,37 +868,77 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_selectTripButtonActionPerformed
 
     private void basicSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchButtonActionPerformed
-        System.out.println((String)leavingComboBox.getSelectedItem());
-        System.out.println((String)goingComboBox.getSelectedItem());
+        //System.out.println((String)leavingComboBox.getSelectedItem());
+        //System.out.println((String)goingComboBox.getSelectedItem());
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdt = new SimpleDateFormat ("dd-MMM-yy");
         
         String leavingCode = (String)leavingComboBox.getSelectedItem();
-        String goingCode = (String)goingComboBox.getSelectedItem();
-        String leavingDate = leavingDateField.getText();        
-        String leavingPlusMinus = (String)plusMinusLeavingCombo.getSelectedItem();
+        String leavingPlusMinus = (String)plusMinusLeavingCombo.getSelectedItem();        
+        Date leavingDate = leavingDatePicker.getDate();   
+        String leavingLowerBound = sdt.format(leavingDate);
+        String leavingUpperBound = sdt.format(leavingDate); 
         
-        String goingPlusMinus = "";
-        String goingDate = "";
-        if(controller.getTripType() == TripType.ROUND_TRIP)
-        {
-            goingPlusMinus = (String)plusMinusGoingCombo.getSelectedItem();
-            goingDate = goingDateField.getText();
-        }
+        String goingCode = (String)goingComboBox.getSelectedItem();         
         
-        //controller.fillSearchResultsTable(leavingCode, goingCode, leavingDate, goingDate, leavingPlusMinus, goingPlusMinus);
         if(leavingCode == "" || goingCode == "")
         {
             JOptionPane.showMessageDialog(this, "must specify airports");
             return;
         }
-        controller.buildSearchQuery(leavingCode, goingCode, leavingDate, goingDate, leavingPlusMinus, goingPlusMinus);
+        
+        System.out.println("leaving date: " + sdt.format(leavingDate));
+            
+        int offset = Integer.parseInt(leavingPlusMinus);           
+        cal.setTime(leavingDate);
+        if(offset > 0)
+        {
+            cal.add(Calendar.DATE, offset);
+            leavingUpperBound = sdt.format(cal.getTime());
+            System.out.println("upper: " + leavingUpperBound);
+
+            cal.add(Calendar.DATE, (-2*offset));                
+            leavingLowerBound = sdt.format(cal.getTime());
+            System.out.println("lower: " + leavingLowerBound);
+        }        
+        
+        String goingPlusMinus = "";
+        Date goingDate = null;
+        String goingLowerBound = "";
+        String goingUpperBound = ""; 
+        
+        if(controller.getTripType() == TripType.ROUND_TRIP)
+        {
+            goingPlusMinus = (String)plusMinusGoingCombo.getSelectedItem();
+            goingDate = goingDatePicker.getDate();
+            System.out.println("going date: " + sdt.format(goingDate));
+            goingLowerBound = sdt.format(goingDate);
+            goingUpperBound = sdt.format(goingDate);
+            
+            offset = Integer.parseInt(goingPlusMinus);           
+            cal.setTime(goingDate);
+            if(offset > 0)
+            {
+                cal.add(Calendar.DATE, offset);
+                goingUpperBound = sdt.format(cal.getTime());
+                System.out.println("upper: " + goingUpperBound);
+                
+                cal.add(Calendar.DATE, (-2*offset));                
+                goingLowerBound = sdt.format(cal.getTime());
+                System.out.println("lower: " + goingLowerBound);
+            }
+            controller.fillSearchResultsTable(leavingCode, goingCode, leavingLowerBound, leavingUpperBound, goingLowerBound, goingUpperBound);
+            return;
+        }        
+        controller.fillSearchResultsTable(leavingCode, goingCode, leavingLowerBound, leavingUpperBound);        
     }//GEN-LAST:event_basicSearchButtonActionPerformed
 
     private void oneWayRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneWayRadioActionPerformed
         // TODO add your handling code here:
         controller.setTripType(TripType.ONE_WAY);
-        goingDateField.setEditable(false);
-            goingTimeField.setEditable(false);
-            plusMinusGoingCombo.setEditable(false);
+        goingDatePicker.setEditable(false);
+        plusMinusGoingCombo.setEditable(false);
     }//GEN-LAST:event_oneWayRadioActionPerformed
 
     private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
@@ -1116,8 +1152,8 @@ public class Display extends javax.swing.JFrame {
         
         if(controller.getTripType() == TripType.ONE_WAY)
         {
-            goingDateField.setEditable(false);
-            goingTimeField.setEditable(false);
+            oneWayRadio.setSelected(true);
+            goingDatePicker.setEditable(false);            
             plusMinusGoingCombo.setEditable(false);
         }
     }//GEN-LAST:event_userSearchFlightButtonActionPerformed
@@ -1129,9 +1165,8 @@ public class Display extends javax.swing.JFrame {
 
     private void roundTripRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundTripRadioActionPerformed
         controller.setTripType(TripType.ROUND_TRIP);
-        goingDateField.setEditable(true);
-            goingTimeField.setEditable(true);
-            plusMinusGoingCombo.setEditable(true);
+        goingDatePicker.setEditable(true);                      
+        plusMinusGoingCombo.setEditable(true);
     }//GEN-LAST:event_roundTripRadioActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
@@ -1221,7 +1256,7 @@ public class Display extends javax.swing.JFrame {
     
     public void setPlusMinusCombos()
     {
-        String[] days = {"", "1", "2"};
+        String[] days = {"0", "1", "2"};
         plusMinusLeavingCombo.removeAllItems();
         plusMinusGoingCombo.removeAllItems();
         
@@ -1229,6 +1264,29 @@ public class Display extends javax.swing.JFrame {
         {
             plusMinusLeavingCombo.addItem(d);
             plusMinusGoingCombo.addItem(d);
+        }
+    }
+    
+    public void displaySearchResultsTable(List<Trip> trips)
+    {
+        javax.swing.table.DefaultTableModel searchResultsModel =
+            (javax.swing.table.DefaultTableModel)this.searchResultsTable.getModel();
+        
+        // clear all the rows
+        for(int i = searchResultsModel.getRowCount()-1; i >= 0; i--) {
+            searchResultsModel.removeRow(i);
+        }
+        
+        //add back rows: trip_number, airline, price, departure, destination, number_of_legs
+        for(int i = 0; i < trips.size(); i++) {
+            searchResultsModel.addRow(new Object[] {
+                trips.get(i).getTrip_number(),
+                trips.get(i).getAirline(),
+                trips.get(i).getPrice(),
+                trips.get(i).getDeparture(),
+                trips.get(i).getDestination(),
+                trips.get(i).getNumber_of_legs()
+            });
         }
     }
     
@@ -1283,17 +1341,15 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JButton createAccountButton;
     private javax.swing.JPanel flightSearchPanel;
     private javax.swing.JComboBox goingComboBox;
-    private javax.swing.JTextField goingTimeField;
+    private org.jdesktop.swingx.JXDatePicker goingDatePicker;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -1314,10 +1370,8 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private javax.swing.JComboBox leavingComboBox;
-    private javax.swing.JTextField leavingTimeField;
+    private org.jdesktop.swingx.JXDatePicker leavingDatePicker;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPasswordField newUserPasswordField;
     private javax.swing.JTextField newUserUsernameField;

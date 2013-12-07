@@ -436,32 +436,46 @@ public class DBHandler {
         return arrivingPorts.toArray(new String[arrivingPorts.size()]);
     }
     
-    public void getSearchResults(String query) throws SQLException
+    
+    public List<Trip> getSearchResults(String leavingCode, String goingCode, String leavingDate, 
+            String goingDate, String leavingPlusMinus, String goingPlusMinus) throws SQLException
     {
-        /*List<Trip> searchResults = null;
+        return new ArrayList<Trip>();
+    }
+      
+    public String buildSearchQuery(String leavingCode, String goingCode, String leavingLowerBound, 
+            String leavingUpperBound, String goingLowerBound, String goingUpperBound)
+    {
+        return "";
+    }
+    
+    public List<Trip> getSearchResults(String leavingCode, String goingCode, String leavingDate,  String goingDate) throws SQLException
+    {
+       
         Statement stmt = null;
-         ResultSet rset = null;
-         
+        ResultSet rset = null;
+        List<Trip> searchResults = new ArrayList<Trip>();
+        
         try
         {
+            String allTripsQuery = buildSearchQuery(leavingCode, goingCode, leavingDate, goingDate);
             stmt = conn.createStatement();
-           // String searchQuery = buildSearchQuery(leavingCode, goingCode, leavingDate, 
-           // goingDate, leavingPlusMinus, goingPlusMinus);
-            
-            String searchQuery = "SELECT * FROM TRIP,FLIGHT_LEG WHERE TRIP.TRIP_NUMBER = FLIGHT_LEG.TRIP_NUMBER AND"
-                    + " FLIGHT_LEG.FLIGHT_DATE < '5-DEC-13'";
-            rset = stmt.executeQuery(searchQuery);
-            
+            rset = stmt.executeQuery(allTripsQuery);
             if(!rset.next())
             {
-                System.out.println("no trips found");
+                System.out.println("no flights found empty");
             }
             else
             {
                 do
-                {
+                {             
                     String tripNum = rset.getString("TRIP_NUMBER");
-                    System.out.println("trips found: " + tripNum);
+                    String airline = rset.getString("AIRLINE");
+                    String price = rset.getString("PRICE");
+                    String depart = rset.getString("DEPARTURE");
+                    String dest = rset.getString("DESTINATION");
+                    String numLegs = rset.getString("NUMBER_OF_LEGS");                    
+                    searchResults.add(new Trip(tripNum, airline, price, depart, dest, numLegs));                          
                 }while(rset.next());
             }
         }
@@ -472,9 +486,22 @@ public class DBHandler {
         finally
         {
             stmt.close();
-        }*/
-            
+        }
+        return searchResults;
     }
     
-
+    public String buildSearchQuery(String leavingCode, String goingCode, String leavingLowerBound, String leavingUpperBound)
+    {
+        String query = "select * from flight_leg, trip where trip.departure = '"
+                + leavingCode 
+                +"' and trip.destination = '" 
+                + goingCode 
+                + "' and flight_leg.trip_number = trip.trip_number and flight_leg.leg_number = 1 and flight_leg.flight_date <= '" 
+                + leavingUpperBound
+                + "' and flight_leg.flight_date >= '"
+                + leavingLowerBound
+                + "'";
+        System.out.println("query: " + query);
+        return query;
+    }
 }
