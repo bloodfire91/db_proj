@@ -678,7 +678,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="searchResultsScroll" pref="165" max="32767" attributes="0"/>
+                      <Component id="searchResultsScroll" pref="162" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="selectTripButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -791,11 +791,11 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="basicSearchButton" alignment="1" min="-2" pref="191" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="goingDateField" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="leavingDateField" min="-2" pref="118" max="-2" attributes="0"/>
+                                          <Component id="jXDatePicker1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jXDatePicker2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -843,11 +843,11 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="leavingComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="leavingDateField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="leavingTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="plusMinusLeavingCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jXDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -857,9 +857,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="goingComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="goingDateField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="goingTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="plusMinusGoingCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jXDatePicker2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="11" max="32767" attributes="0"/>
                       <Component id="basicSearchButton" min="-2" max="-2" attributes="0"/>
@@ -876,11 +876,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="basicSearchButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="leavingDateField">
-            </Component>
             <Component class="javax.swing.JTextField" name="leavingTimeField">
-            </Component>
-            <Component class="javax.swing.JTextField" name="goingDateField">
             </Component>
             <Component class="javax.swing.JTextField" name="goingTimeField">
             </Component>
@@ -993,6 +989,10 @@
                   </StringArray>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+            </Component>
+            <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker2">
             </Component>
           </SubComponents>
         </Container>
