@@ -16,6 +16,8 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Set;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -110,7 +112,6 @@ public class Display extends javax.swing.JFrame {
         basicSearchBackButton = new javax.swing.JButton();
         paymentPanel = new javax.swing.JPanel();
         paymentSubmitPanel = new javax.swing.JPanel();
-        paymentNameField = new javax.swing.JTextField();
         paymentEmailField = new javax.swing.JTextField();
         paymentStreetField = new javax.swing.JTextField();
         paymentAccountNumField = new javax.swing.JTextField();
@@ -119,7 +120,6 @@ public class Display extends javax.swing.JFrame {
         paymentStateField = new javax.swing.JTextField();
         paymentZipField = new javax.swing.JTextField();
         paymentSubmitButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -229,7 +229,7 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(newUserPasswordField))
-                .addContainerGap(352, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,7 +354,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminPanelLayout.createSequentialGroup()
                         .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 515, Short.MAX_VALUE)
                         .addComponent(adminLogoutButton))
                     .addGroup(adminPanelLayout.createSequentialGroup()
                         .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -455,7 +455,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 162, Short.MAX_VALUE))
+                        .addGap(0, 185, Short.MAX_VALUE))
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -465,7 +465,7 @@ public class Display extends javax.swing.JFrame {
                                 .addComponent(jLabel24)
                                 .addGap(18, 18, 18)
                                 .addComponent(userLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
                         .addComponent(userLogoutButton)))
                 .addContainerGap())
         );
@@ -741,7 +741,7 @@ public class Display extends javax.swing.JFrame {
                         .addComponent(basicSearchLogoutButton))
                     .addComponent(basicSearchPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchResultsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         flightSearchPanelLayout.setVerticalGroup(
             flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -774,8 +774,11 @@ public class Display extends javax.swing.JFrame {
         });
 
         paymentSubmitButton.setText("Submit Payment");
-
-        jLabel1.setText("Name");
+        paymentSubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentSubmitButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Email");
 
@@ -806,29 +809,26 @@ public class Display extends javax.swing.JFrame {
             paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7)
-                    .addComponent(paymentStreetField)
-                    .addComponent(paymentAccountNumField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                    .addComponent(paymentNameField))
-                .addGap(18, 18, 18)
                 .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(paymentEmailField)
-                            .addComponent(paymentStateField)
-                            .addComponent(paymentAccountNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(paymentPhoneField)
-                            .addComponent(paymentZipField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
-                    .addComponent(jLabel8))
+                    .addComponent(jLabel8)
+                    .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(paymentAccountNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(paymentStreetField, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(paymentAccountNumField, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(paymentEmailField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(paymentStateField))
+                .addGap(18, 18, 18)
+                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6)
+                    .addComponent(paymentPhoneField)
+                    .addComponent(paymentZipField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -845,46 +845,41 @@ public class Display extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSubmitPanelLayout.createSequentialGroup()
                         .addComponent(paymentSubmitButton)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSubmitPanelLayout.createSequentialGroup()
+                    .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
                         .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paymentEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(paymentStateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paymentPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel27))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(paymentZipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(totalPaymentDueField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel8)
-                                .addGap(5, 5, 5)
-                                .addComponent(paymentAccountNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paymentNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(paymentEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(paymentStreetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel7)
+                                .addComponent(paymentStateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paymentAccountNumField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(paymentPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel27))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(paymentZipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(totalPaymentDueField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(113, 113, 113))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSubmitPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(5, 5, 5)
+                        .addComponent(paymentAccountNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(paymentStreetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(paymentAccountNumField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))))
         );
 
@@ -907,7 +902,7 @@ public class Display extends javax.swing.JFrame {
         paymentPanelLayout.setHorizontalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
-                .addContainerGap(587, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(paymentBackButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(paymenLogoutButton)
@@ -1306,6 +1301,40 @@ public class Display extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_totalPaymentDueFieldActionPerformed
 
+    private void paymentSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentSubmitButtonActionPerformed
+
+        String email = paymentEmailField.getText();
+        String street = paymentStreetField.getText();
+        String accountNum = paymentAccountNumField.getText();
+        String accountName = paymentAccountNameField.getText();
+        String phone = paymentPhoneField.getText();
+        String state = paymentStateField.getText();
+        String zip = paymentZipField.getText();
+        
+        Random rand = new Random(System.currentTimeMillis());
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdt = new SimpleDateFormat ("dd-MMM-yy");
+        
+        Set<String> set = controller.getSelectedTrips().keySet();
+        String resNum = String.valueOf(rand.nextInt(100));
+        String date = sdt.format(cal.getTime());
+        Payment payment = new 
+                Payment(String.valueOf(rand.nextInt(100)), resNum , date, accountNum, accountName);
+        
+        String address = street.concat(state).concat(zip);
+        Reservation reservation =
+                new Reservation(resNum, email, address, phone, date);
+        
+        if(controller.addPaymentAndReservation(payment, reservation))
+        {
+            JOptionPane.showMessageDialog(this, "payment success");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "payment could not be added.\n check all fields");
+        }
+    }//GEN-LAST:event_paymentSubmitButtonActionPerformed
+
     public void displayAdminTrips(List<Trip> trips)
     {
         javax.swing.table.DefaultTableModel adminTripsModel =
@@ -1523,7 +1552,6 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JComboBox goingComboBox;
     private org.jdesktop.swingx.JXDatePicker goingDatePicker;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1567,7 +1595,6 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JTextField paymentAccountNumField;
     private javax.swing.JButton paymentBackButton;
     private javax.swing.JTextField paymentEmailField;
-    private javax.swing.JTextField paymentNameField;
     private javax.swing.JPanel paymentPanel;
     private javax.swing.JTextField paymentPhoneField;
     private javax.swing.JTextField paymentStateField;

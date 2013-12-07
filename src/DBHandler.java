@@ -5,6 +5,9 @@
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  *
  * @author Robin
@@ -498,5 +501,67 @@ public class DBHandler {
                 + "'";
         
         return query;
+    }
+    
+    public boolean addPaymentAndReservation(Payment payment, Reservation reservation, HashMap<String, String> selectedTrips) throws SQLException
+    {
+        boolean added = false;
+        PreparedStatement payStmt = null;
+        PreparedStatement reservStmt = null;
+        PreparedStatement hasStmt = null;
+        
+        ResultSet trips = null;
+        List<String> allPlanes = new ArrayList<String>();
+        
+        try
+        {
+            conn.setAutoCommit(false);
+            /*String insertPayment = "INSERT INTO PAYMENT"
+                    + " (TRANSACTION_NUMBER, TRIP_NUMBER, RESERVATION_NUMBER, PAYMENT_DATE, ACCOUNT_NUM, NAME_ON_ACCOUNT)"
+                    + " VALUES(?,?,?,?,?,?)";
+            String insertReservation = "INSERT INTO RESERVATION"
+                    + " (RESERVATION_NUMBER, EMAIL, USERNAME, ADDRESS, PHONE_NUMBER, RESERVATION_DATE)"
+                    + " VALUES(?,?,?,?,?,?)";
+            
+            payStmt = conn.prepareStatement(insertPayment);
+            reservStmt = conn.prepareStatement(insertReservation);    */
+            
+            String insertHasTrip = "INSERT INTO HAS_TRIP (USERNAME, TRIP_NUMBER) "
+                    + "VALUES (?,?)";
+            hasStmt = conn.prepareStatement(insertHasTrip);
+            hasStmt.setString(1, "user");
+            hasStmt.setInt(2, 3);
+            hasStmt.executeUpdate();
+            conn.commit();
+            System.out.println("committed!");
+            /*payStmt.setInt(1, Integer.parseInt(transNum));
+            payStmt.setInt(2, Integer.parseInt(tripNum));
+            payStmt.setInt(3, Integer.parseInt(reservNum));
+            payStmt.setInt(4, Integer.parse(tripNum));
+            payStmt.setInt(5, Integer.parse(tripNum));
+            payStmt.setInt(6, Integer.parse(tripNum));*/           
+            
+            added = true;
+        }        
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+            if (conn != null) {
+            try {
+                System.err.print("Transaction is being rolled back");
+                conn.rollback();
+            } catch(SQLException excep) {
+                System.out.println(e.getMessage());
+            }
+        }
+        }
+        finally
+        {
+            //payStmt.close();
+            //reservStmt.close();
+            hasStmt.close();
+            conn.setAutoCommit(true);
+        }
+        return added;
     }
 }

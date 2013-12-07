@@ -340,6 +340,26 @@ public class Controller {
         
         return String.valueOf(total);
     }
+    //(String.valueOf(rand.nextInt(100)), 
+    //            sdt.format(cal.getTime()), accountNum, accountName, String.valueOf(rand.nextInt(100)), email, street, state, zip, phone))
+    public boolean addPaymentAndReservation(Payment payment, Reservation reservation)
+    {
+        try
+        {
+            return dbHandler.addPaymentAndReservation(payment, reservation, selectedTrips);       
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        } 
+        
+        return false;
+    }
+    
+    public HashMap<String,String> getSelectedTrips()
+    {
+        return selectedTrips;
+    }
             
     //display GUI
     public static void main(String args[])
