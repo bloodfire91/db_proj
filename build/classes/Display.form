@@ -664,7 +664,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="searchResultsTable" pref="630" max="32767" attributes="0"/>
+                          <Component id="searchResultsScroll" pref="630" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="selectTripButton" min="-2" pref="191" max="-2" attributes="0"/>
@@ -678,7 +678,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="searchResultsTable" pref="165" max="32767" attributes="0"/>
+                      <Component id="searchResultsScroll" pref="165" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="selectTripButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -695,14 +695,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectTripButtonActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="searchResultsTable">
+            <Container class="javax.swing.JScrollPane" name="searchResultsScroll">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable1">
+                <Component class="javax.swing.JTable" name="searchResultsTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="0">
@@ -789,36 +789,33 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                                      <Component id="basicSearchButton" min="-2" pref="191" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="basicSearchButton" alignment="1" min="-2" pref="191" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="arrivalDateField" max="32767" attributes="0"/>
+                                          <Component id="goingDateField" max="32767" attributes="0"/>
                                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="leavingDateField" min="-2" pref="118" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel13" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="leavingRangeField" min="-2" pref="71" max="-2" attributes="0"/>
+                                                  <Component id="plusMinusLeavingCombo" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                   <Component id="jLabel17" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="leavingTimeField" min="-2" pref="100" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="arrivalRangeField" min="-2" pref="71" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="arrivalTimeField" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="plusMinusGoingCombo" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                              <Component id="goingTimeField" min="-2" pref="100" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -847,8 +844,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="leavingComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="leavingDateField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="leavingRangeField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="leavingTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="plusMinusLeavingCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -860,9 +857,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="goingComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="arrivalDateField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="arrivalRangeField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="arrivalTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="goingDateField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="goingTimeField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="plusMinusGoingCombo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="11" max="32767" attributes="0"/>
                       <Component id="basicSearchButton" min="-2" max="-2" attributes="0"/>
@@ -881,21 +878,11 @@
             </Component>
             <Component class="javax.swing.JTextField" name="leavingDateField">
             </Component>
-            <Component class="javax.swing.JTextField" name="leavingRangeField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="leavingRangeFieldActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JTextField" name="leavingTimeField">
             </Component>
-            <Component class="javax.swing.JTextField" name="arrivalDateField">
+            <Component class="javax.swing.JTextField" name="goingDateField">
             </Component>
-            <Component class="javax.swing.JTextField" name="arrivalRangeField">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="arrivalRangeFieldActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="arrivalTimeField">
+            <Component class="javax.swing.JTextField" name="goingTimeField">
             </Component>
             <Component class="javax.swing.JComboBox" name="leavingComboBox">
               <Properties>
@@ -982,6 +969,30 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roundTripRadioActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="plusMinusLeavingCombo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="plusMinusGoingCombo">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

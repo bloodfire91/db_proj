@@ -80,16 +80,14 @@ public class Display extends javax.swing.JFrame {
         flightSearchPanel = new javax.swing.JPanel();
         searchResultsPanel = new javax.swing.JPanel();
         selectTripButton = new javax.swing.JButton();
-        searchResultsTable = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        searchResultsScroll = new javax.swing.JScrollPane();
+        searchResultsTable = new javax.swing.JTable();
         basicSearchPanel = new javax.swing.JPanel();
         basicSearchButton = new javax.swing.JButton();
         leavingDateField = new javax.swing.JTextField();
-        leavingRangeField = new javax.swing.JTextField();
         leavingTimeField = new javax.swing.JTextField();
-        arrivalDateField = new javax.swing.JTextField();
-        arrivalRangeField = new javax.swing.JTextField();
-        arrivalTimeField = new javax.swing.JTextField();
+        goingDateField = new javax.swing.JTextField();
+        goingTimeField = new javax.swing.JTextField();
         leavingComboBox = new javax.swing.JComboBox();
         goingComboBox = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
@@ -102,6 +100,8 @@ public class Display extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         oneWayRadio = new javax.swing.JRadioButton();
         roundTripRadio = new javax.swing.JRadioButton();
+        plusMinusLeavingCombo = new javax.swing.JComboBox();
+        plusMinusGoingCombo = new javax.swing.JComboBox();
         basicSearchLogoutButton = new javax.swing.JButton();
         basicSearchBackButton = new javax.swing.JButton();
         paymentPanel = new javax.swing.JPanel();
@@ -495,7 +495,7 @@ public class Display extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        searchResultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -518,7 +518,7 @@ public class Display extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        searchResultsTable.setViewportView(jTable1);
+        searchResultsScroll.setViewportView(searchResultsTable);
 
         javax.swing.GroupLayout searchResultsPanelLayout = new javax.swing.GroupLayout(searchResultsPanel);
         searchResultsPanel.setLayout(searchResultsPanelLayout);
@@ -527,7 +527,7 @@ public class Display extends javax.swing.JFrame {
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchResultsTable, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+                    .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchResultsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(selectTripButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -537,7 +537,7 @@ public class Display extends javax.swing.JFrame {
             searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(searchResultsTable, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(selectTripButton)
                 .addContainerGap())
@@ -549,18 +549,6 @@ public class Display extends javax.swing.JFrame {
         basicSearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 basicSearchButtonActionPerformed(evt);
-            }
-        });
-
-        leavingRangeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leavingRangeFieldActionPerformed(evt);
-            }
-        });
-
-        arrivalRangeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                arrivalRangeFieldActionPerformed(evt);
             }
         });
 
@@ -600,6 +588,10 @@ public class Display extends javax.swing.JFrame {
             }
         });
 
+        plusMinusLeavingCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        plusMinusGoingCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout basicSearchPanelLayout = new javax.swing.GroupLayout(basicSearchPanel);
         basicSearchPanel.setLayout(basicSearchPanelLayout);
         basicSearchPanelLayout.setHorizontalGroup(
@@ -620,12 +612,10 @@ public class Display extends javax.swing.JFrame {
                             .addComponent(leavingComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                                .addGap(114, 114, 114)
-                                .addComponent(basicSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(basicSearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(basicSearchPanelLayout.createSequentialGroup()
                                 .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(arrivalDateField)
+                                    .addComponent(goingDateField)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel15)
                                     .addComponent(leavingDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,16 +625,16 @@ public class Display extends javax.swing.JFrame {
                                         .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel13)
                                             .addComponent(jLabel16)
-                                            .addComponent(leavingRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(25, 25, 25)
                                         .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel14)
                                             .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(basicSearchPanelLayout.createSequentialGroup()
-                                        .addComponent(arrivalRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(arrivalTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(plusMinusGoingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25)
+                                        .addComponent(goingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addContainerGap())
         );
         basicSearchPanelLayout.setVerticalGroup(
@@ -663,8 +653,8 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(leavingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(leavingDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(leavingRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(leavingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -674,9 +664,9 @@ public class Display extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(goingComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arrivalDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arrivalRangeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arrivalTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(goingDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(goingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(plusMinusGoingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(basicSearchButton))
         );
@@ -884,11 +874,29 @@ public class Display extends javax.swing.JFrame {
     private void basicSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchButtonActionPerformed
         System.out.println((String)leavingComboBox.getSelectedItem());
         System.out.println((String)goingComboBox.getSelectedItem());
+        
+        String leavingCode = (String)leavingComboBox.getSelectedItem();
+        String goingCode = (String)goingComboBox.getSelectedItem();
+        String leavingDate = leavingDateField.getText();        
+        String leavingPlusMinus = (String)plusMinusLeavingCombo.getSelectedItem();
+        
+        String goingPlusMinus = "";
+        String goingDate = "";
+        if(controller.getTripType() == TripType.ROUND_TRIP)
+        {
+            goingPlusMinus = (String)plusMinusGoingCombo.getSelectedItem();
+            goingDate = goingDateField.getText();
+        }
+        
+        //controller.fillSearchResultsTable(leavingCode, goingCode, leavingDate, goingDate, leavingPlusMinus, goingPlusMinus);
     }//GEN-LAST:event_basicSearchButtonActionPerformed
 
     private void oneWayRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneWayRadioActionPerformed
         // TODO add your handling code here:
         controller.setTripType(TripType.ONE_WAY);
+        goingDateField.setEditable(false);
+            goingTimeField.setEditable(false);
+            plusMinusGoingCombo.setEditable(false);
     }//GEN-LAST:event_oneWayRadioActionPerformed
 
     private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
@@ -1098,23 +1106,26 @@ public class Display extends javax.swing.JFrame {
         
         //*******populate combo boxes
         controller.populateSearchComboBoxes();
+        setPlusMinusCombos();
+        
+        if(controller.getTripType() == TripType.ONE_WAY)
+        {
+            goingDateField.setEditable(false);
+            goingTimeField.setEditable(false);
+            plusMinusGoingCombo.setEditable(false);
+        }
     }//GEN-LAST:event_userSearchFlightButtonActionPerformed
-
-    private void arrivalRangeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arrivalRangeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_arrivalRangeFieldActionPerformed
-
-    private void leavingRangeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leavingRangeFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_leavingRangeFieldActionPerformed
 
     private void basicSearchBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchBackButtonActionPerformed
         CardLayout cl = (CardLayout) this.getContentPane().getLayout();
-        cl.show(this.getContentPane(), "userPanel"); 
+        cl.show(this.getContentPane(), "userCard"); 
     }//GEN-LAST:event_basicSearchBackButtonActionPerformed
 
     private void roundTripRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundTripRadioActionPerformed
         controller.setTripType(TripType.ROUND_TRIP);
+        goingDateField.setEditable(true);
+            goingTimeField.setEditable(true);
+            plusMinusGoingCombo.setEditable(true);
     }//GEN-LAST:event_roundTripRadioActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
@@ -1199,6 +1210,19 @@ public class Display extends javax.swing.JFrame {
         }
     }
     
+    public void setPlusMinusCombos()
+    {
+        String[] days = {"", "1", "2"};
+        plusMinusLeavingCombo.removeAllItems();
+        plusMinusGoingCombo.removeAllItems();
+        
+        for(String d: days)
+        {
+            plusMinusLeavingCombo.addItem(d);
+            plusMinusGoingCombo.addItem(d);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1243,9 +1267,6 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JPanel adminPanel;
     private javax.swing.JTable adminTripsTable;
     private javax.swing.JButton adminViewTripButton;
-    private javax.swing.JTextField arrivalDateField;
-    private javax.swing.JTextField arrivalRangeField;
-    private javax.swing.JTextField arrivalTimeField;
     private javax.swing.JButton basicSearchBackButton;
     private javax.swing.JButton basicSearchButton;
     private javax.swing.JButton basicSearchLogoutButton;
@@ -1253,6 +1274,8 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JButton createAccountButton;
     private javax.swing.JPanel flightSearchPanel;
     private javax.swing.JComboBox goingComboBox;
+    private javax.swing.JTextField goingDateField;
+    private javax.swing.JTextField goingTimeField;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1283,10 +1306,8 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox leavingComboBox;
     private javax.swing.JTextField leavingDateField;
-    private javax.swing.JTextField leavingRangeField;
     private javax.swing.JTextField leavingTimeField;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPasswordField newUserPasswordField;
@@ -1308,9 +1329,12 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JButton paymentSubmitButton;
     private javax.swing.JPanel paymentSubmitPanel;
     private javax.swing.JTextField paymentZipField;
+    private javax.swing.JComboBox plusMinusGoingCombo;
+    private javax.swing.JComboBox plusMinusLeavingCombo;
     private javax.swing.JRadioButton roundTripRadio;
     private javax.swing.JPanel searchResultsPanel;
-    private javax.swing.JScrollPane searchResultsTable;
+    private javax.swing.JScrollPane searchResultsScroll;
+    private javax.swing.JTable searchResultsTable;
     private javax.swing.JButton selectTripButton;
     private javax.swing.ButtonGroup tripType;
     private javax.swing.JScrollPane userFlightHistoryScroll;

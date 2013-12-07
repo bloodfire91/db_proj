@@ -265,7 +265,27 @@ public class Controller {
     public void setTripType(TripType t)
     {
         this.tripType = t;
+        System.out.println("triptype: " + this.tripType);
+        
     }
+    
+    public TripType getTripType()
+    {
+        return tripType;        
+    }
+    
+    /*public void fillSearchResultTable(String leavingCode, String goingCode, String leavingDate, 
+            String goingDate, String leavingPlusMinus, String goingPlusMinus) throws SQLException
+    {
+        try
+        {
+            
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }*/
             
     //display GUI
     public static void main(String args[])
