@@ -514,6 +514,10 @@ public class DBHandler {
         PreparedStatement reservStmt = null;
         PreparedStatement hasStmt = null;
         
+        PreparedStatement payStmt2 = null;
+        PreparedStatement reservStmt2 = null;
+        PreparedStatement hasStmt2 = null;
+        
         ResultSet trips = null;
         List<String> allPlanes = new ArrayList<String>();
         
@@ -523,35 +527,61 @@ public class DBHandler {
             String insertPayment = "INSERT INTO PAYMENT"
                     + " (TRANSACTION_NUMBER, TRIP_NUMBER, RESERVATION_NUMBER, PAYMENT_DATE, ACCOUNT_NUM, NAME_ON_ACCOUNT)"
                     + " VALUES(?,?,?,?,?,?)";
+            
             String insertReservation = "INSERT INTO RESERVATION"
                     + " (RESERVATION_NUMBER, EMAIL, USERNAME, ADDRESS, PHONE_NUMBER, RESERVATION_DATE)"
                     + " VALUES(?,?,?,?,?,?)";
+            
+            String insertHasTrip = "INSERT INTO HAS_TRIP (USERNAME, TRIP_NUMBER) "
+                    + "VALUES (?,?)";
+            
             List<Integer> tripNumbers = new ArrayList<Integer>();
             Set<String> set = selectedTrips.keySet();            
             for(String s: set)
             {
                 tripNumbers.add(Integer.parseInt(s));
             }
+            Random rand = new Random(System.currentTimeMillis());           
+            int reservNum = rand.nextInt(100);       
+            int transacNum = rand.nextInt(100);
             
-            Random rand = new Random(System.currentTimeMillis());
+            if(tripNumbers.size() > 1)
+            {
+                payStmt = conn.prepareStatement(insertPayment);
+                payStmt.setInt(1, transacNum);//transac
+                payStmt.setInt(2, tripNumbers.get(1));//trip
+                payStmt.setInt(3, reservNum);//reservatoin
+                payStmt.setDate(4, new java.sql.Date(payment.getPayment_date().getTime()));//payment date
+                payStmt.setInt(5, Integer.parseInt(payment.getAccount_num()));//account num
+                payStmt.setString(6, payment.getName_on_account());//name on account   
+                payStmt.executeUpdate();            
+
+                reservStmt = conn.prepareStatement(insertReservation);
+                reservStmt.setInt(1, reservNum);
+                reservStmt.setString(2, reservation.getEmail());
+                reservStmt.setString(3, user.getUsername());
+                reservStmt.setString(4, reservation.getAddress());
+                reservStmt.setString(5, reservation.getPhone_number());
+                reservStmt.setDate(6, new java.sql.Date(reservation.getReservation_date().getTime()));
+                reservStmt.executeUpdate();
+
+                hasStmt = conn.prepareStatement(insertHasTrip);
+                hasStmt.setString(1, user.getUsername());
+                hasStmt.setInt(2, tripNumbers.get(1));
+                hasStmt.executeUpdate();
+            }
             
-            
-            int reservNum = rand.nextInt(100);
-            
-            //Calendar cal = Calendar.getInstance();
-            SimpleDateFormat sdt = new SimpleDateFormat ("dd-MMM-yy");
-        
-            System.out.println("payment date: " + sdt.format(payment.getPayment_date()));
+            reservNum = rand.nextInt(100);       
+            transacNum = rand.nextInt(100);
             
             payStmt = conn.prepareStatement(insertPayment);
-            payStmt.setInt(1, rand.nextInt(100));//transac
+            payStmt.setInt(1, transacNum);//transac
             payStmt.setInt(2, tripNumbers.get(0));//trip
             payStmt.setInt(3, reservNum);//reservatoin
             payStmt.setDate(4, new java.sql.Date(payment.getPayment_date().getTime()));//payment date
             payStmt.setInt(5, Integer.parseInt(payment.getAccount_num()));//account num
             payStmt.setString(6, payment.getName_on_account());//name on account   
-            payStmt.executeUpdate();
-            
+            payStmt.executeUpdate();            
 
             reservStmt = conn.prepareStatement(insertReservation);
             reservStmt.setInt(1, reservNum);
@@ -562,8 +592,6 @@ public class DBHandler {
             reservStmt.setDate(6, new java.sql.Date(reservation.getReservation_date().getTime()));
             reservStmt.executeUpdate();
             
-            String insertHasTrip = "INSERT INTO HAS_TRIP (USERNAME, TRIP_NUMBER) "
-                    + "VALUES (?,?)";
             hasStmt = conn.prepareStatement(insertHasTrip);
             hasStmt.setString(1, user.getUsername());
             hasStmt.setInt(2, tripNumbers.get(0));

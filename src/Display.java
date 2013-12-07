@@ -131,6 +131,9 @@ public class Display extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         paymenLogoutButton = new javax.swing.JButton();
         paymentBackButton = new javax.swing.JButton();
+        thanksPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jButton5.setText("jButton5");
 
@@ -926,6 +929,42 @@ public class Display extends javax.swing.JFrame {
 
         getContentPane().add(paymentPanel, "paymentCard");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("Thanks for booking with us!");
+
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout thanksPanelLayout = new javax.swing.GroupLayout(thanksPanel);
+        thanksPanel.setLayout(thanksPanelLayout);
+        thanksPanelLayout.setHorizontalGroup(
+            thanksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(thanksPanelLayout.createSequentialGroup()
+                .addGroup(thanksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(thanksPanelLayout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jLabel1))
+                    .addGroup(thanksPanelLayout.createSequentialGroup()
+                        .addGap(328, 328, 328)
+                        .addComponent(jButton1)))
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+        thanksPanelLayout.setVerticalGroup(
+            thanksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(thanksPanelLayout.createSequentialGroup()
+                .addGap(302, 302, 302)
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49)
+                .addComponent(jButton1)
+                .addContainerGap(232, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(thanksPanel, "logoutCard");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -988,7 +1027,7 @@ public class Display extends javax.swing.JFrame {
         String leavingLowerBound = sdt.format(leavingDate);
         String leavingUpperBound = sdt.format(leavingDate); 
         
-        System.out.println("leaving date: " + sdt.format(leavingDate));
+        //System.out.println("leaving date: " + sdt.format(leavingDate));
             
         int offset = Integer.parseInt(leavingPlusMinus);           
         cal.setTime(leavingDate);
@@ -996,11 +1035,11 @@ public class Display extends javax.swing.JFrame {
         {
             cal.add(Calendar.DATE, offset);
             leavingUpperBound = sdt.format(cal.getTime());
-            System.out.println("upper: " + leavingUpperBound);
+            //System.out.println("upper: " + leavingUpperBound);
 
             cal.add(Calendar.DATE, (-2*offset));                
             leavingLowerBound = sdt.format(cal.getTime());
-            System.out.println("lower: " + leavingLowerBound);
+            //System.out.println("lower: " + leavingLowerBound);
         }        
         
         String goingPlusMinus = "";
@@ -1012,7 +1051,7 @@ public class Display extends javax.swing.JFrame {
         {
             goingPlusMinus = (String)plusMinusGoingCombo.getSelectedItem();
             goingDate = goingDatePicker.getDate();
-            System.out.println("going date: " + sdt.format(goingDate));
+            //System.out.println("going date: " + sdt.format(goingDate));
             goingLowerBound = sdt.format(goingDate);
             goingUpperBound = sdt.format(goingDate);
             
@@ -1022,11 +1061,11 @@ public class Display extends javax.swing.JFrame {
             {
                 cal.add(Calendar.DATE, offset);
                 goingUpperBound = sdt.format(cal.getTime());
-                System.out.println("upper: " + goingUpperBound);
+                //System.out.println("upper: " + goingUpperBound);
                 
                 cal.add(Calendar.DATE, (-2*offset));                
                 goingLowerBound = sdt.format(cal.getTime());
-                System.out.println("lower: " + goingLowerBound);
+                //System.out.println("lower: " + goingLowerBound);
             }
             controller.getRoundSearchResults(leavingCode, goingCode, goingLowerBound, goingUpperBound, leavingLowerBound, leavingUpperBound);
             return;
@@ -1083,12 +1122,12 @@ public class Display extends javax.swing.JFrame {
         username = oldUserUsernameField.getText();
         password = new String(oldUserPasswordField.getPassword());
         
-        System.out.println("username: " + username);
-        System.out.println("passwrod: " + password);
+        //System.out.println("username: " + username);
+        //System.out.println("passwrod: " + password);
         
         boolean validated = false;        
         validated = controller.validateUser(username, password);
-        System.out.println("in validated: " + validated);
+        //System.out.println("in validated: " + validated);
         if(validated) 
         {            
             //System.out.print("validated");
@@ -1244,6 +1283,7 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_userLogoutButtonActionPerformed
 
     private void userSearchFlightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSearchFlightButtonActionPerformed
+        clearRoundSearchResults();
         CardLayout cl = (CardLayout) this.getContentPane().getLayout();
         cl.show(this.getContentPane(), "flightSearchCard");    
         
@@ -1302,7 +1342,7 @@ public class Display extends javax.swing.JFrame {
     }//GEN-LAST:event_totalPaymentDueFieldActionPerformed
 
     private void paymentSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentSubmitButtonActionPerformed
-
+        
         String email = paymentEmailField.getText();
         String street = paymentStreetField.getText();
         String accountNum = paymentAccountNumField.getText();
@@ -1328,12 +1368,21 @@ public class Display extends javax.swing.JFrame {
         if(controller.addPaymentAndReservation(payment, reservation))
         {
             JOptionPane.showMessageDialog(this, "payment success");
+            CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+            cl.show(this.getContentPane(), "logoutCard");
         }
         else
         {
             JOptionPane.showMessageDialog(this, "payment could not be added.\n check all fields \nyou may have paid this trip already");
         }
+        clearPaymentFields();
     }//GEN-LAST:event_paymentSubmitButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "loginCard");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
     {
@@ -1366,7 +1415,7 @@ public class Display extends javax.swing.JFrame {
             adminLegsModel.removeRow(i);
         }
         
-        System.out.println("legssize: " + legs.size());
+        //System.out.println("legssize: " + legs.size());
         
         //add back rows: trip_number, airline, price, departure, destination, number_of_legs
         for(int i = 0; i < legs.size(); i++) {
@@ -1498,6 +1547,17 @@ public class Display extends javax.swing.JFrame {
         }
     }
     
+    public void clearPaymentFields()
+    {
+        paymentEmailField.setText("");
+        paymentStreetField.setText("");
+        paymentAccountNumField.setText("");
+        paymentAccountNameField.setText("");
+        paymentPhoneField.setText("");
+        paymentStateField.setText("");
+        paymentZipField.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1551,7 +1611,9 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JPanel flightSearchPanel;
     private javax.swing.JComboBox goingComboBox;
     private org.jdesktop.swingx.JXDatePicker goingDatePicker;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1610,6 +1672,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JScrollPane searchResultsScroll;
     private javax.swing.JScrollPane searchResultsScroll1;
     private javax.swing.JButton selectTripButton;
+    private javax.swing.JPanel thanksPanel;
     private javax.swing.JTextField totalPaymentDueField;
     private javax.swing.ButtonGroup tripType;
     private javax.swing.JScrollPane userFlightHistoryScroll;
