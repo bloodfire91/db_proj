@@ -381,8 +381,11 @@ public class DBHandler {
             {
                 do
                 {
-                    String code = rset.getString("CODE");             
-                    departingPorts.add(code);
+                    String code = rset.getString("CODE");  
+                    if(!departingPorts.contains(code))
+                    {
+                        departingPorts.add(code);
+                    }
                     
                 }while(rset.next());
             }
@@ -418,8 +421,11 @@ public class DBHandler {
             {
                 do
                 {
-                    String code = rset.getString("CODE");             
-                    arrivingPorts.add(code);
+                    String code = rset.getString("CODE");  
+                    if(!arrivingPorts.contains(code))
+                    {
+                        arrivingPorts.add(code);
+                    }
                     
                 }while(rset.next());
             }
@@ -437,19 +443,8 @@ public class DBHandler {
     }
     
     
-    public List<Trip> getSearchResults(String leavingCode, String goingCode, String leavingDate, 
-            String goingDate, String leavingPlusMinus, String goingPlusMinus) throws SQLException
-    {
-        return new ArrayList<Trip>();
-    }
-      
-    public String buildSearchQuery(String leavingCode, String goingCode, String leavingLowerBound, 
-            String leavingUpperBound, String goingLowerBound, String goingUpperBound)
-    {
-        return "";
-    }
     
-    public List<Trip> getSearchResults(String leavingCode, String goingCode, String leavingDate,  String goingDate) throws SQLException
+    public List<Trip> getSearchResults(String leavingCode, String goingCode, String leavingLowerBound, String leavingUpperBound) throws SQLException
     {
        
         Statement stmt = null;
@@ -458,12 +453,12 @@ public class DBHandler {
         
         try
         {
-            String allTripsQuery = buildSearchQuery(leavingCode, goingCode, leavingDate, goingDate);
+            String allTripsQuery = buildSearchQuery(leavingCode, goingCode, leavingLowerBound, leavingUpperBound);
             stmt = conn.createStatement();
             rset = stmt.executeQuery(allTripsQuery);
             if(!rset.next())
             {
-                System.out.println("no flights found empty");
+                System.out.println("no flights found");
             }
             else
             {
@@ -501,7 +496,7 @@ public class DBHandler {
                 + "' and flight_leg.flight_date >= '"
                 + leavingLowerBound
                 + "'";
-        System.out.println("query: " + query);
+        
         return query;
     }
 }

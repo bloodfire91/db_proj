@@ -4,6 +4,9 @@
  */
 import java.sql.*;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  *
  * @author Robin
@@ -15,6 +18,7 @@ public class Controller {
     private Trip selectedTrip;
     private DBHandler dbHandler;
     private TripType tripType = TripType.ONE_WAY;
+    private HashMap<String, String> selectedTrips;
     
     //private Connection conn;
     //private String userAccess;
@@ -25,6 +29,7 @@ public class Controller {
     {
         display = new Display(this);
         dbHandler = new DBHandler(password);
+        selectedTrips = new HashMap<String, String>();
         //userAccess = new String("R");
         //initConnection();
         
@@ -272,38 +277,69 @@ public class Controller {
     public TripType getTripType()
     {
         return tripType;        
-    }
+    }    
     
-    public void fillSearchResultsTable(String leavingCode, String goingCode, String leavingDate, 
-            String goingDate, String leavingPlusMinus, String goingPlusMinus)
-    {
-       try
-       {
-            List<Trip> searchResults = dbHandler.getSearchResults(leavingCode, goingCode, leavingDate, goingDate, leavingPlusMinus, goingPlusMinus);
-       }
-       catch(SQLException e)
-        {
-            System.out.println(e.getMessage());
-        } 
-    }
-    
-    
-    public void fillSearchResultsTable(String leavingCode, String goingCode, String leavingDate, 
-            String goingDate)
+    public void getOneWaySearchResults(String leavingCode, String goingCode, String goingLowerBound, String goingUpperBound)
     {
         try
         {
-            List<Trip> searchResults = dbHandler.getSearchResults(leavingCode, goingCode, leavingDate, goingDate);
+            List<Trip> searchResults = dbHandler.getSearchResults(leavingCode, goingCode, goingLowerBound, goingUpperBound);
             System.out.println("search size: " + searchResults.size());
-            display.displaySearchResultsTable(searchResults);
+            display.displayDepartingResultsTable(searchResults);            
         }
         catch(SQLException e)
         {
             System.out.println(e.getMessage());
-        }     
+        }   
     }
     
+    public void getRoundSearchResults(String leavingCode, String goingCode, String goingLowerBound, String goingUpperBound,
+            String leavingLowerBound, String leavingUpperBound)
+    {
+        try
+        {
+            List<Trip> returnResults = dbHandler.getSearchResults(goingCode, leavingCode, goingLowerBound, goingUpperBound);//switch codes for way back
+            //System.out.println("search size: " + searchResults.size());
+            List<Trip> departResults = dbHandler.getSearchResults(leavingCode, goingCode, leavingLowerBound, leavingUpperBound);
+            
+            if(returnResults.size() > 0 && departResults.size() > 0)
+            {
+                display.displayReturningResultsTable(returnResults);
+                display.displayDepartingResultsTable(departResults);
+            }
+            else
+            {
+                display.clearRoundSearchResults();
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }   
+    }
     
+    public void clearSelectedTrips()
+    {
+        selectedTrips.clear();
+    }
+    
+    public void addSelectedTrip(String tripNum, String price)
+    {
+        selectedTrips.put(tripNum, price);
+    }
+    
+    public String getTotalPayment()
+    {
+        Set<String> set = selectedTrips.keySet();
+        int total = 0;
+        for(String s: set)
+        {
+            total += Integer.parseInt(selectedTrips.get(s));
+        }
+        
+        return String.valueOf(total);
+    }
             
     //display GUI
     public static void main(String args[])

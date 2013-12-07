@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -84,7 +85,11 @@ public class Display extends javax.swing.JFrame {
         searchResultsPanel = new javax.swing.JPanel();
         selectTripButton = new javax.swing.JButton();
         searchResultsScroll = new javax.swing.JScrollPane();
-        searchResultsTable = new javax.swing.JTable();
+        returnSearchResultsTable = new javax.swing.JTable();
+        searchResultsScroll1 = new javax.swing.JScrollPane();
+        departSearchResultsTable = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         basicSearchPanel = new javax.swing.JPanel();
         basicSearchButton = new javax.swing.JButton();
         leavingComboBox = new javax.swing.JComboBox();
@@ -122,6 +127,8 @@ public class Display extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        totalPaymentDueField = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
         paymenLogoutButton = new javax.swing.JButton();
         paymentBackButton = new javax.swing.JButton();
 
@@ -222,7 +229,7 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(jLabel19)
                     .addComponent(createAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(newUserPasswordField))
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(352, Short.MAX_VALUE))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +250,7 @@ public class Display extends javax.swing.JFrame {
                 .addComponent(newUserPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(createAccountButton)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         getContentPane().add(loginPanel, "loginCard");
@@ -347,7 +354,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(adminPanelLayout.createSequentialGroup()
                         .addComponent(adminLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 464, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 492, Short.MAX_VALUE)
                         .addComponent(adminLogoutButton))
                     .addGroup(adminPanelLayout.createSequentialGroup()
                         .addGroup(adminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,7 +393,7 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adminEditAssignmentButton)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         getContentPane().add(adminPanel, "adminCard");
@@ -448,7 +455,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 134, Short.MAX_VALUE))
+                        .addGap(0, 162, Short.MAX_VALUE))
                     .addGroup(userPanelLayout.createSequentialGroup()
                         .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -458,7 +465,7 @@ public class Display extends javax.swing.JFrame {
                                 .addComponent(jLabel24)
                                 .addGap(18, 18, 18)
                                 .addComponent(userLoggedInAsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 310, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 338, Short.MAX_VALUE)
                         .addComponent(userLogoutButton)))
                 .addContainerGap())
         );
@@ -480,7 +487,7 @@ public class Display extends javax.swing.JFrame {
                 .addComponent(userViewFlightHistoryButton)
                 .addGap(18, 18, 18)
                 .addComponent(userFlightHistoryScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         getContentPane().add(userPanel, "userCard");
@@ -494,7 +501,7 @@ public class Display extends javax.swing.JFrame {
             }
         });
 
-        searchResultsTable.setModel(new javax.swing.table.DefaultTableModel(
+        returnSearchResultsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -517,27 +524,67 @@ public class Display extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        searchResultsScroll.setViewportView(searchResultsTable);
+        searchResultsScroll.setViewportView(returnSearchResultsTable);
+
+        departSearchResultsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Trip Number", "Airline", "Price", "Departure", "Destination", "Number of Legs"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        searchResultsScroll1.setViewportView(departSearchResultsTable);
+
+        jLabel14.setText("Departing Flights");
+
+        jLabel17.setText("Returning Flights");
 
         javax.swing.GroupLayout searchResultsPanelLayout = new javax.swing.GroupLayout(searchResultsPanel);
         searchResultsPanel.setLayout(searchResultsPanelLayout);
         searchResultsPanelLayout.setHorizontalGroup(
             searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(searchResultsScroll1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, searchResultsPanelLayout.createSequentialGroup()
+                .addComponent(jLabel14)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchResultsPanelLayout.createSequentialGroup()
+                .addGroup(searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, searchResultsPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addContainerGap())
+                    .addGroup(searchResultsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(selectTripButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(selectTripButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(searchResultsScroll)
         );
         searchResultsPanelLayout.setVerticalGroup(
             searchResultsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchResultsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchResultsScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchResultsScroll1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchResultsScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selectTripButton)
                 .addContainerGap())
         );
@@ -652,9 +699,9 @@ public class Display extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel13))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(leavingDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(leavingDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(plusMinusLeavingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(11, 11, 11)
                         .addGroup(basicSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
@@ -668,6 +715,11 @@ public class Display extends javax.swing.JFrame {
         );
 
         basicSearchLogoutButton.setText("Logout");
+        basicSearchLogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                basicSearchLogoutButtonActionPerformed(evt);
+            }
+        });
 
         basicSearchBackButton.setText("Back");
         basicSearchBackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -689,7 +741,7 @@ public class Display extends javax.swing.JFrame {
                         .addComponent(basicSearchLogoutButton))
                     .addComponent(basicSearchPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchResultsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         flightSearchPanelLayout.setVerticalGroup(
             flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -698,7 +750,7 @@ public class Display extends javax.swing.JFrame {
                 .addGroup(flightSearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(basicSearchLogoutButton)
                     .addComponent(basicSearchBackButton))
-                .addGap(27, 27, 27)
+                .addGap(1, 1, 1)
                 .addComponent(basicSearchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchResultsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -709,21 +761,17 @@ public class Display extends javax.swing.JFrame {
 
         paymentSubmitPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Payment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
 
-        paymentNameField.setText("jTextField1");
+        paymentEmailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentEmailFieldActionPerformed(evt);
+            }
+        });
 
-        paymentEmailField.setText("jTextField2");
-
-        paymentStreetField.setText("jTextField3");
-
-        paymentAccountNumField.setText("jTextField4");
-
-        paymentAccountNameField.setText("jTextField5");
-
-        paymentPhoneField.setText("jTextField6");
-
-        paymentStateField.setText("jTextField13");
-
-        paymentZipField.setText("jTextField14");
+        paymentPhoneField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentPhoneFieldActionPerformed(evt);
+            }
+        });
 
         paymentSubmitButton.setText("Submit Payment");
 
@@ -743,6 +791,15 @@ public class Display extends javax.swing.JFrame {
 
         jLabel8.setText("Name on Account");
 
+        totalPaymentDueField.setEditable(false);
+        totalPaymentDueField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalPaymentDueFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setText("Total Due");
+
         javax.swing.GroupLayout paymentSubmitPanelLayout = new javax.swing.GroupLayout(paymentSubmitPanel);
         paymentSubmitPanel.setLayout(paymentSubmitPanelLayout);
         paymentSubmitPanelLayout.setHorizontalGroup(
@@ -753,37 +810,37 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel7)
-                    .addComponent(paymentStreetField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                    .addComponent(paymentAccountNumField)
+                    .addComponent(paymentStreetField)
+                    .addComponent(paymentAccountNumField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                     .addComponent(paymentNameField))
                 .addGap(18, 18, 18)
                 .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSubmitPanelLayout.createSequentialGroup()
-                        .addGap(0, 262, Short.MAX_VALUE)
-                        .addComponent(paymentSubmitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))
                     .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel5)
-                                    .addComponent(paymentEmailField)
-                                    .addComponent(paymentStateField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                    .addComponent(paymentAccountNameField))
-                                .addGap(18, 18, 18)
-                                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel6)
-                                    .addComponent(paymentPhoneField)
-                                    .addComponent(paymentZipField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
-                            .addComponent(jLabel8))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(paymentEmailField)
+                            .addComponent(paymentStateField)
+                            .addComponent(paymentAccountNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(paymentPhoneField)
+                            .addComponent(paymentZipField, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(paymentSubmitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .addComponent(totalPaymentDueField))
+                    .addComponent(jLabel27))
+                .addGap(52, 52, 52))
         );
         paymentSubmitPanelLayout.setVerticalGroup(
             paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paymentSubmitPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentSubmitPanelLayout.createSequentialGroup()
                         .addComponent(paymentSubmitButton)
@@ -805,9 +862,13 @@ public class Display extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(paymentPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jLabel6)
+                                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel27))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(paymentZipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(paymentSubmitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(paymentZipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(totalPaymentDueField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel8)
                                 .addGap(5, 5, 5)
@@ -828,15 +889,25 @@ public class Display extends javax.swing.JFrame {
         );
 
         paymenLogoutButton.setText("Logout");
+        paymenLogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymenLogoutButtonActionPerformed(evt);
+            }
+        });
 
         paymentBackButton.setText("Back");
+        paymentBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentBackButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paymentPanelLayout = new javax.swing.GroupLayout(paymentPanel);
         paymentPanel.setLayout(paymentPanelLayout);
         paymentPanelLayout.setHorizontalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(587, Short.MAX_VALUE)
                 .addComponent(paymentBackButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(paymenLogoutButton)
@@ -844,7 +915,7 @@ public class Display extends javax.swing.JFrame {
             .addGroup(paymentPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(paymentSubmitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paymentPanelLayout.setVerticalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -855,7 +926,7 @@ public class Display extends javax.swing.JFrame {
                     .addComponent(paymentBackButton))
                 .addGap(114, 114, 114)
                 .addComponent(paymentSubmitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         getContentPane().add(paymentPanel, "paymentCard");
@@ -864,29 +935,63 @@ public class Display extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectTripButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectTripButtonActionPerformed
-        // TODO add your handling code here:
+               
+        int index = departSearchResultsTable.getSelectedRow();
+               
+        if(index < 0)
+        {
+            JOptionPane.showMessageDialog(this, "must select trip");
+            return;
+        }
+        controller.clearSelectedTrips();
+        javax.swing.table.DefaultTableModel tripModel = (javax.swing.table.DefaultTableModel)departSearchResultsTable.getModel(); 
+        
+        Object trip = tripModel.getValueAt(index, 0);
+        Object price = tripModel.getValueAt(index, 2);
+        controller.addSelectedTrip((String)trip, (String)price);
+       
+        if(controller.getTripType() == TripType.ROUND_TRIP)
+        {
+            index = returnSearchResultsTable.getSelectedRow();
+            if(index < 0)
+            {
+                JOptionPane.showMessageDialog(this, "must select trip");
+                return;
+            }
+            tripModel = (javax.swing.table.DefaultTableModel)returnSearchResultsTable.getModel();
+            trip = tripModel.getValueAt(index, 0);
+            price = tripModel.getValueAt(index, 2);
+            controller.addSelectedTrip((String)trip, (String)price);
+        }
+        
+        totalPaymentDueField.setText(controller.getTotalPayment());
+        
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "paymentCard");   
     }//GEN-LAST:event_selectTripButtonActionPerformed
 
     private void basicSearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchButtonActionPerformed
         //System.out.println((String)leavingComboBox.getSelectedItem());
-        //System.out.println((String)goingComboBox.getSelectedItem());
+        //System.out.println((String)goingComboBox.getSelectedItem());       
         
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdt = new SimpleDateFormat ("dd-MMM-yy");
-        
-        String leavingCode = (String)leavingComboBox.getSelectedItem();
-        String leavingPlusMinus = (String)plusMinusLeavingCombo.getSelectedItem();        
-        Date leavingDate = leavingDatePicker.getDate();   
-        String leavingLowerBound = sdt.format(leavingDate);
-        String leavingUpperBound = sdt.format(leavingDate); 
-        
+        String leavingCode = (String)leavingComboBox.getSelectedItem();        
         String goingCode = (String)goingComboBox.getSelectedItem();         
+        clearRoundSearchResults();
         
         if(leavingCode == "" || goingCode == "")
         {
             JOptionPane.showMessageDialog(this, "must specify airports");
             return;
         }
+        
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdt = new SimpleDateFormat ("dd-MMM-yy");
+        
+        String leavingPlusMinus = (String)plusMinusLeavingCombo.getSelectedItem();        
+        Date leavingDate = leavingDatePicker.getDate();   
+        String leavingLowerBound = sdt.format(leavingDate);
+        String leavingUpperBound = sdt.format(leavingDate); 
         
         System.out.println("leaving date: " + sdt.format(leavingDate));
             
@@ -928,17 +1033,18 @@ public class Display extends javax.swing.JFrame {
                 goingLowerBound = sdt.format(cal.getTime());
                 System.out.println("lower: " + goingLowerBound);
             }
-            controller.fillSearchResultsTable(leavingCode, goingCode, leavingLowerBound, leavingUpperBound, goingLowerBound, goingUpperBound);
+            controller.getRoundSearchResults(leavingCode, goingCode, goingLowerBound, goingUpperBound, leavingLowerBound, leavingUpperBound);
             return;
         }        
-        controller.fillSearchResultsTable(leavingCode, goingCode, leavingLowerBound, leavingUpperBound);        
+        controller.getOneWaySearchResults(leavingCode, goingCode, leavingLowerBound, leavingUpperBound);  
+        //System.out.println("filling departin sear")
     }//GEN-LAST:event_basicSearchButtonActionPerformed
 
     private void oneWayRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneWayRadioActionPerformed
         // TODO add your handling code here:
         controller.setTripType(TripType.ONE_WAY);
         goingDatePicker.setEditable(false);
-        plusMinusGoingCombo.setEditable(false);
+        //plusMinusGoingCombo.setEditable(false);
     }//GEN-LAST:event_oneWayRadioActionPerformed
 
     private void createAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountButtonActionPerformed
@@ -1046,15 +1152,15 @@ public class Display extends javax.swing.JFrame {
         int index = this.adminTripsTable.getSelectedRow();
         //System.out.println("selected row: " + index);       
         
-        javax.swing.table.DefaultTableModel inventoryModel = (javax.swing.table.DefaultTableModel)adminTripsTable.getModel();
-        Object tripNum = inventoryModel.getValueAt(index, 0);
+        javax.swing.table.DefaultTableModel tripModel = (javax.swing.table.DefaultTableModel)adminTripsTable.getModel();
+        Object tripNum = tripModel.getValueAt(index, 0);
         //System.out.println("trip num: " + (String)tripNum);      
         
         //clear from database
         if(controller.removeTrip((String) tripNum))
         {
             // clear all the row
-            inventoryModel.removeRow(index);
+            tripModel.removeRow(index);
         }
         else
         {
@@ -1154,8 +1260,12 @@ public class Display extends javax.swing.JFrame {
         {
             oneWayRadio.setSelected(true);
             goingDatePicker.setEditable(false);            
-            plusMinusGoingCombo.setEditable(false);
+            //plusMinusGoingCombo.setEditable(false);
         }
+        Calendar cal = Calendar.getInstance();
+        leavingDatePicker.setDate(cal.getTime());
+        goingDatePicker.setDate(cal.getTime());
+        
     }//GEN-LAST:event_userSearchFlightButtonActionPerformed
 
     private void basicSearchBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchBackButtonActionPerformed
@@ -1166,8 +1276,35 @@ public class Display extends javax.swing.JFrame {
     private void roundTripRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundTripRadioActionPerformed
         controller.setTripType(TripType.ROUND_TRIP);
         goingDatePicker.setEditable(true);                      
-        plusMinusGoingCombo.setEditable(true);
+        //plusMinusGoingCombo.setEditable(true);
     }//GEN-LAST:event_roundTripRadioActionPerformed
+
+    private void basicSearchLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicSearchLogoutButtonActionPerformed
+       CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "loginCard");
+    }//GEN-LAST:event_basicSearchLogoutButtonActionPerformed
+
+    private void paymentBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentBackButtonActionPerformed
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "flightSearchCard"); 
+    }//GEN-LAST:event_paymentBackButtonActionPerformed
+
+    private void paymenLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymenLogoutButtonActionPerformed
+        CardLayout cl = (CardLayout) this.getContentPane().getLayout();
+        cl.show(this.getContentPane(), "loginCard");
+    }//GEN-LAST:event_paymenLogoutButtonActionPerformed
+
+    private void paymentEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentEmailFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentEmailFieldActionPerformed
+
+    private void paymentPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentPhoneFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentPhoneFieldActionPerformed
+
+    private void totalPaymentDueFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalPaymentDueFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalPaymentDueFieldActionPerformed
 
     public void displayAdminTrips(List<Trip> trips)
     {
@@ -1267,10 +1404,10 @@ public class Display extends javax.swing.JFrame {
         }
     }
     
-    public void displaySearchResultsTable(List<Trip> trips)
+    public void displayDepartingResultsTable(List<Trip> trips)
     {
         javax.swing.table.DefaultTableModel searchResultsModel =
-            (javax.swing.table.DefaultTableModel)this.searchResultsTable.getModel();
+            (javax.swing.table.DefaultTableModel)this.departSearchResultsTable.getModel();
         
         // clear all the rows
         for(int i = searchResultsModel.getRowCount()-1; i >= 0; i--) {
@@ -1287,6 +1424,48 @@ public class Display extends javax.swing.JFrame {
                 trips.get(i).getDestination(),
                 trips.get(i).getNumber_of_legs()
             });
+        }
+    }
+    
+     public void displayReturningResultsTable(List<Trip> trips)
+    {
+        javax.swing.table.DefaultTableModel searchResultsModel =
+            (javax.swing.table.DefaultTableModel)this.returnSearchResultsTable.getModel();
+        
+        // clear all the rows
+        for(int i = searchResultsModel.getRowCount()-1; i >= 0; i--) {
+            searchResultsModel.removeRow(i);
+        }
+        
+        //add back rows: trip_number, airline, price, departure, destination, number_of_legs
+        for(int i = 0; i < trips.size(); i++) {
+            searchResultsModel.addRow(new Object[] {
+                trips.get(i).getTrip_number(),
+                trips.get(i).getAirline(),
+                trips.get(i).getPrice(),
+                trips.get(i).getDeparture(),
+                trips.get(i).getDestination(),
+                trips.get(i).getNumber_of_legs()
+            });
+        }
+    }
+     
+    public void clearRoundSearchResults()
+    {
+        javax.swing.table.DefaultTableModel searchResultsModel =
+            (javax.swing.table.DefaultTableModel)this.returnSearchResultsTable.getModel();
+        
+        // clear all the rows
+        for(int i = searchResultsModel.getRowCount()-1; i >= 0; i--) {
+            searchResultsModel.removeRow(i);
+        }
+        
+        searchResultsModel =
+            (javax.swing.table.DefaultTableModel)this.departSearchResultsTable.getModel();
+        
+        // clear all the rows
+        for(int i = searchResultsModel.getRowCount()-1; i >= 0; i--) {
+            searchResultsModel.removeRow(i);
         }
     }
     
@@ -1339,6 +1518,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JButton basicSearchLogoutButton;
     private javax.swing.JPanel basicSearchPanel;
     private javax.swing.JButton createAccountButton;
+    private javax.swing.JTable departSearchResultsTable;
     private javax.swing.JPanel flightSearchPanel;
     private javax.swing.JComboBox goingComboBox;
     private org.jdesktop.swingx.JXDatePicker goingDatePicker;
@@ -1348,8 +1528,10 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -1360,6 +1542,7 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1394,11 +1577,13 @@ public class Display extends javax.swing.JFrame {
     private javax.swing.JTextField paymentZipField;
     private javax.swing.JComboBox plusMinusGoingCombo;
     private javax.swing.JComboBox plusMinusLeavingCombo;
+    private javax.swing.JTable returnSearchResultsTable;
     private javax.swing.JRadioButton roundTripRadio;
     private javax.swing.JPanel searchResultsPanel;
     private javax.swing.JScrollPane searchResultsScroll;
-    private javax.swing.JTable searchResultsTable;
+    private javax.swing.JScrollPane searchResultsScroll1;
     private javax.swing.JButton selectTripButton;
+    private javax.swing.JTextField totalPaymentDueField;
     private javax.swing.ButtonGroup tripType;
     private javax.swing.JScrollPane userFlightHistoryScroll;
     private javax.swing.JTable userFlightHistoryTable;
