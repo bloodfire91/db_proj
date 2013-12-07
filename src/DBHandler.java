@@ -17,10 +17,12 @@ public class DBHandler {
     private final String ADMIN = "A";
     private final String RESTRICTED = "R";
     private String userAccess;
+    private Controller controller;
 
     public DBHandler(String password)
     {
         this.password = password;
+        
         initConnection();
     }
     
@@ -433,4 +435,46 @@ public class DBHandler {
         
         return arrivingPorts.toArray(new String[arrivingPorts.size()]);
     }
+    
+    public void getSearchResults(String query) throws SQLException
+    {
+        /*List<Trip> searchResults = null;
+        Statement stmt = null;
+         ResultSet rset = null;
+         
+        try
+        {
+            stmt = conn.createStatement();
+           // String searchQuery = buildSearchQuery(leavingCode, goingCode, leavingDate, 
+           // goingDate, leavingPlusMinus, goingPlusMinus);
+            
+            String searchQuery = "SELECT * FROM TRIP,FLIGHT_LEG WHERE TRIP.TRIP_NUMBER = FLIGHT_LEG.TRIP_NUMBER AND"
+                    + " FLIGHT_LEG.FLIGHT_DATE < '5-DEC-13'";
+            rset = stmt.executeQuery(searchQuery);
+            
+            if(!rset.next())
+            {
+                System.out.println("no trips found");
+            }
+            else
+            {
+                do
+                {
+                    String tripNum = rset.getString("TRIP_NUMBER");
+                    System.out.println("trips found: " + tripNum);
+                }while(rset.next());
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            stmt.close();
+        }*/
+            
+    }
+    
+
 }

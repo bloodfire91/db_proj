@@ -889,6 +889,12 @@ public class Display extends javax.swing.JFrame {
         }
         
         //controller.fillSearchResultsTable(leavingCode, goingCode, leavingDate, goingDate, leavingPlusMinus, goingPlusMinus);
+        if(leavingCode == "" || goingCode == "")
+        {
+            JOptionPane.showMessageDialog(this, "must specify airports");
+            return;
+        }
+        controller.buildSearchQuery(leavingCode, goingCode, leavingDate, goingDate, leavingPlusMinus, goingPlusMinus);
     }//GEN-LAST:event_basicSearchButtonActionPerformed
 
     private void oneWayRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneWayRadioActionPerformed
@@ -1199,6 +1205,9 @@ public class Display extends javax.swing.JFrame {
     {
         leavingComboBox.removeAllItems();
         goingComboBox.removeAllItems();
+        
+        leavingComboBox.addItem("");
+        goingComboBox.addItem("");
         
         for(String l: leaving)
         {

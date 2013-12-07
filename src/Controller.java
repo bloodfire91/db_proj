@@ -274,18 +274,78 @@ public class Controller {
         return tripType;        
     }
     
-    /*public void fillSearchResultTable(String leavingCode, String goingCode, String leavingDate, 
-            String goingDate, String leavingPlusMinus, String goingPlusMinus) throws SQLException
+    public void fillSearchResultsTable(String leavingCode, String goingCode, String leavingDate, 
+            String goingDate, String leavingPlusMinus, String goingPlusMinus)
     {
-        try
+        /*try
         {
-            
+            List<Trip> searchResults = dbHandler.getSearchResults(leavingCode, goingCode, leavingDate, 
+            goingDate, leavingPlusMinus, goingPlusMinus);
+            //display.displaySearchResultsTable(searchResults);
         }
         catch(SQLException e)
         {
             System.out.println(e.getMessage());
+        }*/
+        
+    }
+    
+    public String buildSearchQuery(String leavingCode, String goingCode, String leavingDate, 
+            String goingDate, String leavingPlusMinus, String goingPlusMinus)
+    {
+        //String query = "";
+        
+        
+        if(tripType == TripType.ONE_WAY)
+        {
+            String datePlus = new String("");
+            String dateMinus = new String("");
+            
+            String dayStr = leavingDate.substring(0,2);
+            String restStr = leavingDate.substring(2);
+            
+            
+            
+            int dayIntPlus = Integer.parseInt(dayStr);
+            int dayIntMinus = dayIntPlus;
+            
+            if(!leavingPlusMinus.equals(""))
+            {
+                dayIntPlus += Integer.parseInt(leavingPlusMinus);
+                dayIntMinus -= Integer.parseInt(leavingPlusMinus);
+            }
+            
+            if(dayIntPlus < 10)
+            {
+                datePlus = datePlus.concat("0");
+               
+            }
+            if(dayIntMinus < 10)
+            {
+                dateMinus = dateMinus.concat("0");
+            }
+            
+            dayStr = String.valueOf(dayIntPlus);            
+            datePlus = dayStr.concat(restStr);
+            
+            dayStr = String.valueOf(dayIntMinus);            
+            dateMinus = dayStr.concat(restStr);
+            
+            System.out.println("plus: " + datePlus);
+            System.out.println("minus: " + dateMinus);
+            
+            
+            /*query = "select * from flight_leg, trip where trip.departure = '"
+                    + leavingCode + "' and trip.destination = '" + goingCode 
+                    + "' and flight_leg.trip_number = trip.trip_number and flight_leg.leg_number = 1 and flight_leg.flight_date < '" 
+                    +  + "'";*/
         }
-    }*/
+        else
+        {
+            
+        }
+        return "";
+    }
             
     //display GUI
     public static void main(String args[])
